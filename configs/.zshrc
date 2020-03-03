@@ -74,7 +74,6 @@ plugins=(
     sudo
     kubectl
     zsh-autosuggestions
-    # zsh-syntax-highlighting
 )
 
 # plugin settings
