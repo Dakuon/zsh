@@ -28,9 +28,11 @@ zplug load
 
 # zplug install and source .zshrc again
 if [[ -n "$RELOAD" ]]; then
+  echo Install plugins
   zplug install
   chmod -R 750 ~/.zplug
-  source ~/.zshrc
+  echo Reload .zshrc
+  exec zsh
 fi
 
 # Load plugins
