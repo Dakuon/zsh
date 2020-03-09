@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export TERM="xterm-256color"
 export LANG=en_US.UTF-8
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
@@ -39,9 +40,6 @@ fi
 source ${HOME}/.zplug/repos/robbyrussell/oh-my-zsh/oh-my-zsh.sh
 source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
 
-# bashcompinit
-# autoload bashcompinit
-
 # Kubectl autocompletion
 if [ -x "$(which kubectl 2>&1)" ]; then
   # Install kubectl-krew if missing
@@ -53,25 +51,15 @@ if [ -x "$(which kubectl 2>&1)" ]; then
     KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64"
     "$KREW" install --manifest=krew.yaml --archive=krew.tar.gz 2> /dev/null
     "$KREW" update 2> /dev/null
-    cd ${HOME}
   fi
-  # Install kubectl-ctx
-  if [ ! -f "${HOME}/.krew/bin/kubectl-ctx" ]; then
-    echo Installing kubectx
-    kubectl krew install ctx 2> /dev/null
-  fi
-  # Install kubectl-ns
-  if [ ! -f "${HOME}/.krew/bin/kubectl-ns" ]; then
-    echo Installing kubens
-    kubectl krew install ns 2> /dev/null
-  fi
-  # Install konfig
-  if [ ! -f "${HOME}/.krew/bin/kubectl-konfig" ]; then
-    echo Installing konfig
-    kubectl krew install konfig 2> /dev/null
-  fi
+  # Install plugins
+  for PLUGIN in kubectl-ctx kubectl-ns kubectl-konfig; do
+    if [ ! -f "${HOME}/.krew/bin/${PLUGIN}" ]; then
+      echo Installing ${PLUGIN}
+      kubectl krew install $(echo $PLUGIN | cut -d '-' -f 2) 2> /dev/null
+    fi
+  done
   # Set up commands
-  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
   alias k=kubectl
   alias kns=${HOME}/.krew/bin/kubectl-ns
   source ${HOME}/.zsh/configs/kubens.bash
@@ -104,6 +92,8 @@ POWERLEVEL9K_HOST_REMOTE_BACKGROUND="darkseagreen"
 POWERLEVEL9K_HOST_REMOTE_FOREGROUND="black"
 POWERLEVEL9K_HOST_LOCAL_BACKGROUND="darkseagreen"
 POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
+POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
+POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
 # icon settings - Win10 Icons for MesloLGS NF
 if [ ! -z "$SSHCLIENT" ]; then
   POWERLEVEL9K_LINUX_ICON="\uE712"
