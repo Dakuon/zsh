@@ -72,9 +72,9 @@ if [ -x "$(which kubectl 2>&1)" ]; then
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
   alias k=kubectl
   alias kns=${HOME}/.krew/bin/kubectl-ns
-  source ${HOME}/.zsh/config/kubens.bash
+  source ${HOME}/.zsh/configs/kubens.bash
   alias kctx=${HOME}/.krew/bin/kubectl-ctx
-  source ${HOME}/.zsh/config/kubectx.bash
+  source ${HOME}/.zsh/configs/kubectx.bash
   source <(k completion zsh)
 fi
 
