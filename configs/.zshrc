@@ -7,15 +7,16 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 if [ ! -d "${HOME}/.zplug" ]; then
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
   RELOAD=true
+  sleep 5
 else
   unset RELOAD
 fi
 
 # Fix zplug folder permissions
-chmod -R 750 ~/.zplug
+chmod -R 750 ${HOME}/.zplug
 
 # Load zplug
-source ~/.zplug/init.zsh
+source ${HOME}/.zplug/init.zsh
 # Install/Load plugins/theme
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/git",   from:oh-my-zsh
@@ -31,14 +32,14 @@ zplug load
 if [[ -n "$RELOAD" ]]; then
   echo Install plugins
   zplug install
-  chmod -R 750 ~/.zplug
+  chmod -R 750 ${HOME}/.zplug
   echo Reload .zshrc
   exec zsh
 fi
 
 # Load plugins
 source ${HOME}/.zplug/repos/robbyrussell/oh-my-zsh/oh-my-zsh.sh
-source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
 
 # Kubectl autocompletion
 if [ -x "$(which kubectl 2>&1)" ]; then
@@ -51,6 +52,7 @@ if [ -x "$(which kubectl 2>&1)" ]; then
     KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64"
     "$KREW" install --manifest=krew.yaml --archive=krew.tar.gz 2> /dev/null
     "$KREW" update 2> /dev/null
+    cd ${HOME}
   fi
   # Install plugins
   for PLUGIN in kubectl-ctx kubectl-ns kubectl-konfig; do
