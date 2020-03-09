@@ -1,8 +1,82 @@
 # Path to your oh-my-zsh installation.
 export TERM="xterm-256color"
-export ZSH="$HOME/.oh-my-zsh"
 export LANG=en_US.UTF-8
-# export FPATH=/usr/share/zsh/[0-9].[0-9]*/functions:$FPATH
+
+# Install zplug
+if [ ! -d "${HOME}/.zplug" ]; then
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+  RELOAD=true
+else
+  unset RELOAD
+fi
+
+# Fix zplug folder permissions
+chmod -R 750 ~/.zplug
+
+# Load zplug
+source ~/.zplug/init.zsh
+# Install/Load plugins/theme
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "plugins/git",   from:oh-my-zsh
+zplug "plugins/sudo",   from:oh-my-zsh
+zplug "plugins/extract",  from:oh-my-zsh
+zplug "ahmetb/kubectx", from:github
+zplug "zsh-users/zsh-autosuggestions"
+zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
+zplug 'romkatv/powerlevel10k', as:theme
+zplug load
+
+# zplug install and source .zshrc again
+if [[ -n "$RELOAD" ]]; then
+  zplug install
+  chmod -R 750 ~/.zplug
+  source ~/.zshrc
+fi
+
+# Load plugins
+source ${HOME}/.zplug/repos/robbyrussell/oh-my-zsh/oh-my-zsh.sh
+source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+
+# bashcompinit
+# autoload bashcompinit
+
+# Kubectl autocompletion
+if [ -x "$(which kubectl 2>&1)" ]; then
+  # Install kubectl-krew if missing
+  if [ ! -d "${HOME}/.krew" ]; then
+    echo Installing kubectl krew
+    cd "$(mktemp -d)"
+    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.{tar.gz,yaml}"
+    tar -zxf krew.tar.gz
+    KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64"
+    "$KREW" install --manifest=krew.yaml --archive=krew.tar.gz 2> /dev/null
+    "$KREW" update 2> /dev/null
+    cd ${HOME}
+  fi
+  # Install kubectl-ctx
+  if [ ! -f "${HOME}/.krew/bin/kubectl-ctx" ]; then
+    echo Installing kubectx
+    kubectl krew install ctx 2> /dev/null
+  fi
+  # Install kubectl-ns
+  if [ ! -f "${HOME}/.krew/bin/kubectl-ns" ]; then
+    echo Installing kubens
+    kubectl krew install ns 2> /dev/null
+  fi
+  # Install konfig
+  if [ ! -f "${HOME}/.krew/bin/kubectl-konfig" ]; then
+    echo Installing konfig
+    kubectl krew install konfig 2> /dev/null
+  fi
+  # Set up commands
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+  alias k=kubectl
+  alias kns=${HOME}/.krew/bin/kubectl-ns
+  source ${HOME}/.zsh/config/kubens.bash
+  alias kctx=${HOME}/.krew/bin/kubectl-ctx
+  source ${HOME}/.zsh/config/kubectx.bash
+  source <(k completion zsh)
+fi
 
 # fix home/end keys
 bindkey "\033[1~" beginning-of-line
@@ -65,22 +139,9 @@ if [ ! -z "$SSHCLIENT" ]; then
   # POWERLEVEL9K_VCS_TAG_ICON="\u"
 fi
 
-# set theme
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# load plugins
-plugins=(
-    git
-    sudo
-    kubectl
-    zsh-autosuggestions
-)
-
 # plugin settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
-
-# load oh-my-zsh
-source $ZSH/oh-my-zsh.sh
+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito'
 
 # color formatting for man pages
 export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold
@@ -118,12 +179,3 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
-
-# Syntax highlighting
-source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
-
-# Kubectl autocompletion
-if [ -x "$(kubectl 2>&1)" ]; then
-  alias k=kubectl
-  source <(kubectl completion zsh)
-fi
