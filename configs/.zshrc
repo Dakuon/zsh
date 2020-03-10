@@ -2,6 +2,15 @@
 export TERM="xterm-256color"
 export LANG=en_US.UTF-8
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export _LS=(=ls)
+export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
+export _GRC=("grc" "--config=$HOME/.lsregex")
+
+# feature opts
+setopt autocd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
 
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
@@ -22,10 +31,11 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/git",   from:oh-my-zsh
 zplug "plugins/sudo",   from:oh-my-zsh
 zplug "plugins/extract",  from:oh-my-zsh
+zplug "plugins/command-not-found",  from:oh-my-zsh
 zplug "ahmetb/kubectx", from:github
-zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
-zplug 'romkatv/powerlevel10k', as:theme
+zplug 'romkatv/powerlevel10k', as:theme, depth:1
 zplug load
 
 # zplug install and source .zshrc again
@@ -38,7 +48,6 @@ if [[ -n "$RELOAD" ]]; then
 fi
 
 # Load plugins
-source ${HOME}/.zplug/repos/robbyrussell/oh-my-zsh/oh-my-zsh.sh
 source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
 
 # Kubectl autocompletion
@@ -64,8 +73,8 @@ if [ -x "$(which kubectl 2>&1)" ]; then
   # Set up commands
   alias k=kubectl
   alias kns=${HOME}/.krew/bin/kubectl-ns
-  source ${HOME}/.zsh/configs/kubens.bash
   alias kctx=${HOME}/.krew/bin/kubectl-ctx
+  source ${HOME}/.zsh/configs/kubens.bash
   source ${HOME}/.zsh/configs/kubectx.bash
   source <(k completion zsh)
 fi
@@ -78,11 +87,14 @@ bindkey "\033[4~" end-of-line
 POWERLEVEL9K_MODE="nerdfont-complete"
 # prompt settings
 POWERLEVEL9K_TRANSIENT_PROMPT=off
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time os_icon host user dir_writable dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext disk_usage load ram time)
 function p10k-on-pre-prompt() { p10k display '1'=show '1/right'=show '1/left/time'=hide '1/left/os_icon'=show '1/left/host'=show '1/left/user'=show '1/left/dir_writeable'=show '1/left/dir'=show '1/left/vcs'=show '1/right/disk_usage'=show '1/right/load'=show '1/right/ram'=show '1/right/time'=show }
 function p10k-on-post-prompt() { p10k display '1/right'=show '1/left/time'=show '1/left/os_icon'=hide '1/left/host'=hide '1/left/user'=hide '1/left/dir_writeable'=hide '1/left/dir'=show '1/left/vcs'=hide '1/right/disk_usage'=hide '1/right/load'=hide '1/right/ram'=hide '1/right/time'=hide }
-# background/foreground settings
+# prompt theme settings
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭─%F{red}'
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
 POWERLEVEL9K_TIME_BACKGROUND="black"
 POWERLEVEL9K_TIME_FOREGROUND="249"
 POWERLEVEL9K_OS_ICON_BACKGROUND="white"
@@ -153,15 +165,6 @@ eval `dircolors ~/.lscolors`
 # set auto-completion colors
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-# set ls attribute colors
-export _LS=(=ls)
-export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
-export _GRC=("grc" "--config=$HOME/.lsregex")
-alias ls='$_GRC $_LS --color -C $@'
-alias l='$_GRC $_LS --color -la $@'
-alias la='$_GRC $_LS --color -C -A $@'
-alias ll='$_GRC $_LS --color -la $@'
-
 # fix slow-paste caused by zsh-autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238#issuecomment-389324292
 pasteinit() {
@@ -173,3 +176,37 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+# aliases
+alias ls='$_GRC $_LS --color -C $@'
+alias l='$_GRC $_LS --color -la $@'
+alias la='$_GRC $_LS --color -C -A $@'
+alias ll='$_GRC $_LS --color -la $@'
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+alias -- -='cd -'
+alias 1='cd -'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
+
+alias md='mkdir -p'
+alias rd=rmdir
+
+function d () {
+  if [[ -n $1 ]]; then
+    dirs "$@"
+  else
+    dirs -v | head -10
+  fi
+}
+compdef _dirs d
