@@ -1,6 +1,8 @@
 # Path to your oh-my-zsh installation.
 export TERM="xterm-256color"
 export LANG=en_US.UTF-8
+export HISTFILE=~/.zsh_history
+export SAVEHIST=10000
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export _LS=(=ls)
 export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
