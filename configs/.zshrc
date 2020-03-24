@@ -1,26 +1,12 @@
 # Path to your oh-my-zsh installation.
 export TERM="xterm-256color"
 export LANG=en_US.UTF-8
-export HISTFILE=~/.zsh_history
-export SAVEHIST=10000
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export _LS=(=ls)
-export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
-export _GRC=("grc" "--config=$HOME/.lsregex")
 
-# feature opts
-setopt autocd
-setopt auto_pushd
-setopt pushd_ignore_dups
-setopt pushdminus
-
-setopt extended_history       # record timestamp of command in HISTFILE
-setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
-setopt hist_ignore_dups       # ignore duplicated commands history list
-setopt hist_ignore_space      # ignore commands that start with space
-setopt hist_verify            # show command with history expansion to user before running it
-setopt inc_append_history     # add commands to HISTFILE in order of execution
-setopt share_history          # share command history data
+# Load libs
+source ${HOME}/.zsh/configs/libs/completion.zsh
+source ${HOME}/.zsh/configs/libs/directories.zsh
+source ${HOME}/.zsh/configs/libs/history.zsh
+source ${HOME}/.zsh/configs/libs/keybinds.zsh
 
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
@@ -62,6 +48,7 @@ source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-synta
 
 # Kubectl autocompletion
 if [ -x "$(which kubectl 2>&1)" ]; then
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
   # Install kubectl-krew if missing
   if [ ! -d "${HOME}/.krew" ]; then
     echo Installing kubectl krew
@@ -84,9 +71,9 @@ if [ -x "$(which kubectl 2>&1)" ]; then
   alias k=kubectl
   alias kns=${HOME}/.krew/bin/kubectl-ns
   alias kctx=${HOME}/.krew/bin/kubectl-ctx
+  source <(k completion zsh)
   source ${HOME}/.zsh/configs/kubens.bash
   source ${HOME}/.zsh/configs/kubectx.bash
-  source <(k completion zsh)
 fi
 
 # font settings
@@ -182,54 +169,3 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
-
-# aliases
-alias ls='$_GRC $_LS --color -C $@'
-alias l='$_GRC $_LS --color -la $@'
-alias la='$_GRC $_LS --color -C -A $@'
-alias ll='$_GRC $_LS --color -la $@'
-
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g ......='../../../../..'
-
-alias -- -='cd -'
-alias 1='cd -'
-alias 2='cd -2'
-alias 3='cd -3'
-alias 4='cd -4'
-alias 5='cd -5'
-alias 6='cd -6'
-alias 7='cd -7'
-alias 8='cd -8'
-alias 9='cd -9'
-
-alias md='mkdir -p'
-alias rd=rmdir
-
-function d () {
-  if [[ -n $1 ]]; then
-    dirs "$@"
-  else
-    dirs -v | head -10
-  fi
-}
-
-compdef _dirs d
-
-# fix keybinds
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "${terminfo[kpp]}" up-line-or-history
-bindkey "${terminfo[knp]}" down-line-or-history
-bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
-bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
-
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
-bindkey '^[[1;5C' forward-word
-bindkey '^[[1;5D' backward-word
-bindkey '^?' backward-kill-word
