@@ -10,7 +10,7 @@ source ${HOME}/.zsh/configs/libs/keybinds.zsh
 
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+  wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
   RELOAD=true
   sleep 5
 else
