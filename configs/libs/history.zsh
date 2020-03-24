@@ -1,3 +1,7 @@
+###
+# Taken from oh-my-zsh - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/history.zsh
+###
+
 ## History wrapper
 function omz_history {
   local clear list

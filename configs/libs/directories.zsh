@@ -1,5 +1,5 @@
 ###
-# Taken from oh-my-zsh
+# Taken from oh-my-zsh - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/directories.zsh
 ###
 
 export _LS=(=ls)

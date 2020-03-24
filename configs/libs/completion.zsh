@@ -1,5 +1,5 @@
 ###
-# Taken from oh-my-zsh
+# Taken from oh-my-zsh - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/completion.zsh
 ###
 
 # fixme - the load process here seems a bit bizarre
