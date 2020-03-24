@@ -14,6 +14,14 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
 
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history          # share command history data
+
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
@@ -80,10 +88,6 @@ if [ -x "$(which kubectl 2>&1)" ]; then
   source ${HOME}/.zsh/configs/kubectx.bash
   source <(k completion zsh)
 fi
-
-# fix home/end keys
-bindkey "\033[1~" beginning-of-line
-bindkey "\033[4~" end-of-line
 
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"
@@ -211,4 +215,21 @@ function d () {
     dirs -v | head -10
   fi
 }
+
 compdef _dirs d
+
+# fix keybinds
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "${terminfo[kpp]}" up-line-or-history
+bindkey "${terminfo[knp]}" down-line-or-history
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+bindkey '^?' backward-kill-word
