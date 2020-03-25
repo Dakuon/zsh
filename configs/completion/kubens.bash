@@ -1,3 +1,7 @@
+###
+# Taken from ahmetb/kubectx - https://github.com/ahmetb/kubectx/blob/master/completion/kubens.bash
+###
+
 _kube_contexts()
 {
   local curr_arg;

@@ -2,6 +2,9 @@
 export TERM="xterm-256color"
 export LANG=en_US.UTF-8
 
+autoload -Uz compinit
+compinit
+
 # Load libs
 source ${HOME}/.zsh/configs/libs/completion.zsh
 source ${HOME}/.zsh/configs/libs/directories.zsh
@@ -72,8 +75,8 @@ if [ -x "$(which kubectl 2>&1)" ]; then
   alias kns=${HOME}/.krew/bin/kubectl-ns
   alias kctx=${HOME}/.krew/bin/kubectl-ctx
   source <(k completion zsh)
-  source ${HOME}/.zsh/configs/kubens.bash
-  source ${HOME}/.zsh/configs/kubectx.bash
+  source ${HOME}/.zsh/configs/completion/kubens.bash
+  source ${HOME}/.zsh/configs/completion/kubectx.bash
 fi
 
 # font settings

@@ -1,3 +1,7 @@
+###
+# Taken from ahmetb/kubectx - https://github.com/ahmetb/kubectx/blob/master/completion/kubectx.bash
+###
+
 _kube_namespaces()
 {
   local curr_arg;
