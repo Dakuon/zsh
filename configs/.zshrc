@@ -157,7 +157,7 @@ export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 export MANPAGER='less -s -M -R +Gg'
 
 # set ls file/folder colors
-eval `dircolors ~/.lscolors`
+eval `dircolors ${HOME}/.zsh/configs/.lscolors`
 # set auto-completion colors
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 

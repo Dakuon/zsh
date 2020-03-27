@@ -18,7 +18,5 @@ if [[ -n ${MISSING} ]]; then
 fi
 
 ln -sf $BASE_DIR/configs/.zshrc $HOME/.zshrc
-ln -sf $BASE_DIR/configs/.lscolors $HOME/.lscolors
-ln -sf $BASE_DIR/configs/.lsregex $HOME/.lsregex
 
 exec zsh

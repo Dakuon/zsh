@@ -4,7 +4,7 @@
 
 export _LS=(=ls)
 export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
-export _GRC=("grc" "--config=$HOME/.lsregex")
+export _GRC=("grc" "--config=$HOME/.zsh/configs/.lsregex")
 
 # Changing/making/removing directory
 setopt autocd
