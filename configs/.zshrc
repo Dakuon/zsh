@@ -14,14 +14,7 @@ source ${HOME}/.zsh/configs/libs/keybinds.zsh
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
   wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-  RELOAD=true
-  sleep 5
-else
-  unset RELOAD
 fi
-
-# Fix zplug folder permissions
-chmod -R 750 ${HOME}/.zplug
 
 # Load zplug
 source ${HOME}/.zplug/init.zsh
@@ -37,14 +30,17 @@ zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 zplug load
 
-# zplug install and source .zshrc again
-if [[ -n "$RELOAD" ]]; then
-  echo Install plugins
+# if dir .zplug and empty dir .zplug/repos: run plugin install and reload shell
+if [ -d "${HOME}/.zplug" ] && [ ! -d "${HOME}/.zplug/repos" ] || [ -d "${HOME}/.zplug" ] && [[ ! $(ls ${HOME}/.zplug/repos) ]]; then
+  sleep 5
   zplug install
   chmod -R 750 ${HOME}/.zplug
   echo Reload .zshrc
   exec zsh
 fi
+
+# Fix zplug folder permissions
+chmod -R 750 ${HOME}/.zplug
 
 # Load plugins
 source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
