@@ -2,9 +2,15 @@
 # Taken from oh-my-zsh - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/directories.zsh
 ###
 
-export _LS=(=ls)
-export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
-export _GRC=("grc" "--config=$HOME/.zsh/configs/.lsregex")
+if [ -x "$(which grc 2>&1)" ]; then
+  export _LS=(=ls)
+  export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
+  export _GRC=("grc" "--config=$HOME/.zsh/configs/.lsregex")
+  alias ls='$_GRC $_LS --color -C $@'
+  alias l='$_GRC $_LS --color -la $@'
+  alias la='$_GRC $_LS --color -C -A $@'
+  alias ll='$_GRC $_LS --color -la $@'
+fi
 
 # Changing/making/removing directory
 setopt autocd
@@ -40,8 +46,3 @@ function d () {
 }
 
 compdef _dirs d
-
-alias ls='$_GRC $_LS --color -C $@'
-alias l='$_GRC $_LS --color -la $@'
-alias la='$_GRC $_LS --color -C -A $@'
-alias ll='$_GRC $_LS --color -la $@'
