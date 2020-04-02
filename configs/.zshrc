@@ -10,6 +10,8 @@ source ${HOME}/.zsh/configs/libs/completion.zsh
 source ${HOME}/.zsh/configs/libs/directories.zsh
 source ${HOME}/.zsh/configs/libs/history.zsh
 source ${HOME}/.zsh/configs/libs/keybinds.zsh
+source ${HOME}/.zsh/configs/libs/kubeadm.zsh
+source ${HOME}/.zsh/configs/libs/kubectl.zsh
 
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
@@ -44,36 +46,6 @@ chmod -R 750 ${HOME}/.zplug
 
 # Load plugins
 source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
-
-# Kubectl autocompletion
-if [ -x "$(which kubectl 2>&1)" ]; then
-  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-  # Install kubectl-krew if missing
-  if [ ! -d "${HOME}/.krew" ]; then
-    echo Installing kubectl krew
-    cd "$(mktemp -d)"
-    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.{tar.gz,yaml}"
-    tar -zxf krew.tar.gz
-    KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64"
-    "$KREW" install --manifest=krew.yaml --archive=krew.tar.gz 2> /dev/null
-    "$KREW" update 2> /dev/null
-    cd ${HOME}
-  fi
-  # Install plugins
-  for PLUGIN in kubectl-ctx kubectl-ns kubectl-konfig; do
-    if [ ! -f "${HOME}/.krew/bin/${PLUGIN}" ]; then
-      echo Installing ${PLUGIN}
-      kubectl krew install $(echo $PLUGIN | cut -d '-' -f 2) 2> /dev/null
-    fi
-  done
-  # Set up commands
-  alias k=kubectl
-  alias kns=${HOME}/.krew/bin/kubectl-ns
-  alias kctx=${HOME}/.krew/bin/kubectl-ctx
-  source <(k completion zsh)
-  source ${HOME}/.zsh/configs/completion/kubens.bash
-  source ${HOME}/.zsh/configs/completion/kubectx.bash
-fi
 
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"
@@ -152,8 +124,6 @@ export LESS_TERMCAP_ue=$'\e[0m'        # reset underline
 export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 export MANPAGER='less -s -M -R +Gg'
 
-# set ls file/folder colors
-eval `dircolors ${HOME}/.zsh/configs/.lscolors`
 # set auto-completion colors
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 

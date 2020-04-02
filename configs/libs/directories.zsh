@@ -2,7 +2,7 @@
 # Taken from oh-my-zsh - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/directories.zsh
 ###
 
-if [ -x "$(which grc 2>&1)" ]; then
+if [ $commands[grc] ]; then
   export _LS=(=ls)
   export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
   export _GRC=("grc" "--config=$HOME/.zsh/configs/.lsregex")
@@ -10,6 +10,11 @@ if [ -x "$(which grc 2>&1)" ]; then
   alias l='$_GRC $_LS --color -la $@'
   alias la='$_GRC $_LS --color -C -A $@'
   alias ll='$_GRC $_LS --color -la $@'
+fi
+
+# set ls file/folder colors
+if [ -f "${HOME}/.zsh/configs/.lscolors" ]; then
+  eval `dircolors ${HOME}/.zsh/configs/.lscolors`
 fi
 
 # Changing/making/removing directory
