@@ -5,14 +5,6 @@ export LANG=en_US.UTF-8
 autoload -Uz compinit
 compinit
 
-# Load libs
-source ${HOME}/.zsh/configs/libs/completion.zsh
-source ${HOME}/.zsh/configs/libs/directories.zsh
-source ${HOME}/.zsh/configs/libs/history.zsh
-source ${HOME}/.zsh/configs/libs/keybinds.zsh
-source ${HOME}/.zsh/configs/libs/kubeadm.zsh
-source ${HOME}/.zsh/configs/libs/kubectl.zsh
-
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
   wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
@@ -44,8 +36,16 @@ fi
 # Fix zplug folder permissions
 chmod -R 750 ${HOME}/.zplug
 
-# Load plugins
+# Load plugins not picked up zplug
 source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+
+# Load libs
+source ${HOME}/.zsh/configs/libs/completion.zsh
+source ${HOME}/.zsh/configs/libs/directories.zsh
+source ${HOME}/.zsh/configs/libs/history.zsh
+source ${HOME}/.zsh/configs/libs/keybinds.zsh
+source ${HOME}/.zsh/configs/libs/kubeadm.zsh
+source ${HOME}/.zsh/configs/libs/kubectl.zsh
 
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"
