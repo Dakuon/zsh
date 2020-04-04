@@ -1,0 +1,1 @@
+source <(kubeadm completion zsh)

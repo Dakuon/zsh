@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export TERM="xterm-256color"
-export LANG=en_US.UTF-8
+
+setopt no_nomatch
 
 autoload -Uz compinit
 compinit
@@ -40,12 +41,7 @@ chmod -R 750 ${HOME}/.zplug
 source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
 
 # Load libs
-source ${HOME}/.zsh/configs/libs/completion.zsh
-source ${HOME}/.zsh/configs/libs/directories.zsh
-source ${HOME}/.zsh/configs/libs/history.zsh
-source ${HOME}/.zsh/configs/libs/keybinds.zsh
-source ${HOME}/.zsh/configs/libs/kubeadm.zsh
-source ${HOME}/.zsh/configs/libs/kubectl.zsh
+source ${HOME}/.zsh/libs/main.zsh
 
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"

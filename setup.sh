@@ -17,6 +17,6 @@ if [[ -n ${MISSING} ]]; then
   exit 1
 fi
 
-ln -sf $BASE_DIR/configs/.zshrc $HOME/.zshrc
+ln -sf $BASE_DIR/.zshrc $HOME/.zshrc
 
 exec zsh

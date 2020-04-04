@@ -7,6 +7,7 @@ bindkey "${terminfo[kpp]}" up-line-or-history
 bindkey "${terminfo[knp]}" down-line-or-history
 bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
 bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+bindkey "${terminfo[kcbt]}" reverse-menu-complete
 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
