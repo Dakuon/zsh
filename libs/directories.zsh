@@ -5,7 +5,7 @@
 if [ $commands[grc] ]; then
   export _LS=(=ls)
   export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
-  export _GRC=("grc" "--config=$HOME/.lsregex")
+  export _GRC=("grc" "--config=$HOME/dotfiles/.lsregex")
   alias ls='$_GRC $_LS --color -C $@'
   alias l='$_GRC $_LS --color -la $@'
   alias la='$_GRC $_LS --color -C -A $@'
@@ -14,7 +14,7 @@ fi
 
 # set ls file/folder colors
 if [ -f "${HOME}/.lscolors" ]; then
-  eval `dircolors ${HOME}/.lscolors`
+  eval `dircolors ${HOME}/dotfiles/.lscolors`
 fi
 
 # Changing/making/removing directory
