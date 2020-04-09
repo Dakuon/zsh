@@ -1,1 +1,1 @@
-source <(helm completion bash)
+source <(helm completion zsh)
