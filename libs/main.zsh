@@ -13,6 +13,10 @@ fi
 #######################
 # Completion
 #######################
+if [ $commands[hal] ]; then
+  source ${HOME}/.zsh/completion/halyard.zsh
+fi
+
 if [ $commands[helm] ]; then
   source ${HOME}/.zsh/completion/helm.zsh
 fi

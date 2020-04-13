@@ -8,7 +8,7 @@ compinit
 
 # Install zplug
 if [ ! -d "${HOME}/.zplug" ]; then
-  wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+  wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | LANG=en_US.UTF-8 zsh
   sleep 3
 fi
 
