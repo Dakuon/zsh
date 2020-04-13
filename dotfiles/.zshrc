@@ -7,13 +7,7 @@ autoload -Uz compinit
 compinit
 
 # Install zplug
-if [ ! -d "${HOME}/.zplug" ]; then
-  wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | LANG=en_US.UTF-8 zsh
-  sleep 3
-fi
-
-# Load zplug
-source ${HOME}/.zplug/init.zsh
+source ${HOME}/.zsh/libs/zplug.zsh
 # Install/Load plugins/theme
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/git",   from:oh-my-zsh
