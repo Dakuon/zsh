@@ -101,7 +101,7 @@ fi
 
 # plugin settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
-POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito'
+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret'
 
 # color formatting for man pages
 export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold
