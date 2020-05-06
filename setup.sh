@@ -3,7 +3,7 @@
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 echo Checking for dependencies
-for PROG in zsh git wget grc python3; do
+for PROG in zsh git wget grc python3 jq; do
   if ! $(which ${PROG} >/dev/null 2>&1); then
     echo Missing ${PROG^}
     MISSING=1
