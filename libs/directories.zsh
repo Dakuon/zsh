@@ -7,7 +7,7 @@ if [ $commands[grc] ]; then
   export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
   export _GRC=("grc" "--config=$HOME/.zsh/dotfiles/.lsregex")
   alias ls='$_GRC $_LS --color -C $@'
-  alias l='$_GRC $_LS --color -la $@'
+  alias l='$_GRC $_LS --color -l $@'
   alias la='$_GRC $_LS --color -C -A $@'
   alias ll='$_GRC $_LS --color -la $@'
 fi
