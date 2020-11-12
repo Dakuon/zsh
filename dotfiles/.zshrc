@@ -21,7 +21,7 @@ zplug 'romkatv/powerlevel10k', as:theme, depth:1
 zplug load
 
 # if dir .zplug and empty dir .zplug/repos: run plugin install and reload shell
-if [ -d "${HOME}/.zplug" ] && [ ! -d "${HOME}/.zplug/repos" ] || [ -d "${HOME}/.zplug" ] && [[ ! $(/bin/ls -I zplug ${HOME}/.zplug/repos) ]]; then
+if [ -d "${HOME}/.zplug" ] && [ ! -d "${HOME}/.zplug/repos" ] || [ -d "${HOME}/.zplug" ] && [[ ! $(/usr/bin/find ${HOME}/.zplug/repos -maxdepth 1 -mindepth 1 ! -name 'zplug') ]]; then
   zplug install
   chmod -R 750 ${HOME}/.zplug
   echo Reload .zshrc
