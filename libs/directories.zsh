@@ -1,21 +1,36 @@
 ###
-# Taken from oh-my-zsh - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/directories.zsh
+# Parts taken from oh-my-zsh - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/directories.zsh
 ###
 
-if [ $commands[grc] ]; then
+# Set correct ls-command
+if [[ "$OSTYPE" != "linux-gnu" && $commands[gls] ]]; then
+  export _LS=(=gls)
+  alias dircolors="gdircolors"
+else
   export _LS=(=ls)
-  export _LS=($_LS -hF  --group-directories-first --time-style=+%d-%m-%Y\ %H:%M)
-  export _GRC=("grc" "--config=$HOME/.zsh/dotfiles/.lsregex")
-  alias ls='$_GRC $_LS --color -C $@'
-  alias l='$_GRC $_LS --color -l $@'
-  alias la='$_GRC $_LS --color -C -A $@'
-  alias ll='$_GRC $_LS --color -la $@'
 fi
 
-# set ls file/folder colors
-if [ -f "${HOME}/.zsh/dotfiles/.lscolors" ]; then
+# Set GRC command
+if [ $commands[grc] ]; then
+  export _GRC=("grc" "--config=$HOME/.zsh/dotfiles/.lsregex")
+fi
+
+# Set ls args if supported
+$_LS --color > /dev/null 2>&1
+if [ $? == 0 ]; then
+  export LS_ARGS=("--group-directories-first" "--color" "--time-style=+%d-%m-%Y %H:%M")
+fi
+
+# Set ls file/folder colors
+if $(which dircolors >/dev/null 2>&1); then
   eval `dircolors ${HOME}/.zsh/dotfiles/.lscolors`
 fi
+
+# Set aliases
+alias ls='$_GRC $_LS $LS_ARGS -C $@'
+alias l='$_GRC $_LS $LS_ARGS -lh -F $@'
+alias la='$_GRC $_LS $LS_ARGS -C -A $@'
+alias ll='$_GRC $_LS $LS_ARGS -lh -FA $@'
 
 # Changing/making/removing directory
 setopt autocd
@@ -49,5 +64,8 @@ function d () {
     dirs -v | head -10
   fi
 }
+
+autoload -Uz compinit
+compinit
 
 compdef _dirs d
