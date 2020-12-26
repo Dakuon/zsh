@@ -1,6 +1,6 @@
-# Path to your oh-my-zsh installation.
 export TERM="xterm-256color"
 export HISTCONTROL="ignorespace"
+export LC_ALL=$LANG
 
 setopt no_nomatch
 
