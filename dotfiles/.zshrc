@@ -8,35 +8,48 @@ autoload -Uz compinit
 compinit
 
 # Install zplug
-source ${HOME}/.zsh/libs/zplug.zsh
+source ~/.zsh/libs/zplug.zsh
+
+# Source cusom settings
+if [ -f ~/.zsh/custom.zsh ]; then
+  source ~/.zsh/custom.zsh
+fi
+
 # Install/Load plugins/theme
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "plugins/git",   from:oh-my-zsh
-zplug "plugins/sudo",   from:oh-my-zsh
-zplug "plugins/extract",  from:oh-my-zsh
-zplug "plugins/command-not-found",  from:oh-my-zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/extract", from:oh-my-zsh
+zplug "plugins/command-not-found", from:oh-my-zsh
 zplug "ahmetb/kubectx", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 zplug load
 
-# if dir .zplug and empty dir .zplug/repos: run plugin install and reload shell
-if [ -d "${HOME}/.zplug" ] && [ ! -d "${HOME}/.zplug/repos" ] || [ -d "${HOME}/.zplug" ] && [[ ! $(/usr/bin/find ${HOME}/.zplug/repos -maxdepth 1 -mindepth 1 ! -name 'zplug') ]]; then
-  zplug install
-  chmod -R 750 ${HOME}/.zplug
-  echo Reload .zshrc
-  exec zsh
+# plugin install and reload shell
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+    echo Reload zsh
+    exec zsh
+  fi
 fi
 
 # Fix zplug folder permissions
-chmod -R 750 ${HOME}/.zplug
+chmod -R 750 ~/.zplug
 
 # Load plugins not picked up zplug
-source ${HOME}/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+
+# Create dir for completions
+if [ ! -d ~/.completion ]; then
+  mkdir -p ~/.completion
+fi
 
 # Load libs
-source ${HOME}/.zsh/libs/main.zsh
+source ~/.zsh/libs/main.zsh
 
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"
@@ -63,42 +76,6 @@ POWERLEVEL9K_HOST_LOCAL_BACKGROUND="darkseagreen"
 POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
 POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
 POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
-# icon settings - Win10 Icons for MesloLGS NF
-if [ ! -z "$SSHCLIENT" ]; then
-  POWERLEVEL9K_LINUX_ICON="\uE712"
-  POWERLEVEL9K_LINUX_CENTOS_ICON="\uF304"
-  POWERLEVEL9K_LINUX_UBUNTU_ICON="\uE73A"
-  POWERLEVEL9K_OK_ICON="\uf42e"
-  POWERLEVEL9K_HOME_ICON="\uFB9F"
-  POWERLEVEL9K_HOME_SUB_ICON="\uFB9F"
-  POWERLEVEL9K_FOLDER_ICON="\uFC6E"
-  POWERLEVEL9K_ETC_ICON="\uF992"
-  POWERLEVEL9K_USER_ICON="\uF415"
-  POWERLEVEL9K_ROOT_ICON="\ue20f"
-  POWERLEVEL9K_SUDO_ICON="\ue20f"
-  POWERLEVEL9K_LOCK_ICON="\uFAFA"
-  POWERLEVEL9K_RAM_ICON="\uF85A"
-  POWERLEVEL9K_DISK_ICON="\uF7C9"
-  POWERLEVEL9K_LOAD_ICON="\uF2DB"
-  POWERLEVEL9K_TIME_ICON="\uF64F"
-  POWERLEVEL9K_PYTHON_ICON="\uE235"
-  POWERLEVEL9K_SERVER_ICON="\uF308"
-  POWERLEVEL9K_VCS_GIT_ICON="\uF408 "
-  POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON="\uF408 "
-  POWERLEVEL9K_VCS_GIT_GITHUB_ICON="\uF408 "
-  POWERLEVEL9K_VCS_GIT_GITLAB_ICON="\uF408 "
-  POWERLEVEL9K_VCS_BRANCH_ICON="\uE0A0 "
-  POWERLEVEL9K_VCS_STASH_ICON="\uF47F"
-  POWERLEVEL9K_VCS_STAGED_ICON="\uF6B2"
-  POWERLEVEL9K_VCS_UNSTAGED_ICON="\uF009"
-  POWERLEVEL9K_VCS_UNTRACKED_ICON="\uF7D5"
-  POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON="\uF175"
-  POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON="\uF176"
-  # POWERLEVEL9K_VCS_BOOKMARK_ICON="\u"
-  # POWERLEVEL9K_VCS_COMMIT_ICON="\u"
-  # POWERLEVEL9K_VCS_REMOTE_BRANCH_ICON="\u"
-  # POWERLEVEL9K_VCS_TAG_ICON="\u"
-fi
 
 # plugin settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"

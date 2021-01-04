@@ -7,11 +7,11 @@ function omz_history {
   local clear list
   zparseopts -E c=clear l=list
 
-  if [[ -n "$clear" ]]; then
+  if [[ -n "${clear}" ]]; then
     # if -c provided, clobber the history file
-    echo -n >| "$HISTFILE"
+    echo -n >| "${HISTFILE}"
     echo >&2 History file deleted. Reload the session to see its effects.
-  elif [[ -n "$list" ]]; then
+  elif [[ -n "${list}" ]]; then
     # if -l provided, run as if calling `fc' directly
     builtin fc "$@"
   else
@@ -26,11 +26,11 @@ case ${HIST_STAMPS-} in
   "dd.mm.yyyy") alias history='omz_history -E' ;;
   "yyyy-mm-dd") alias history='omz_history -i' ;;
   "") alias history='omz_history' ;;
-  *) alias history="omz_history -t '$HIST_STAMPS'" ;;
+  *) alias history="omz_history -t '${HIST_STAMPS}'" ;;
 esac
 
 ## History file configuration
-[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+[ -z "$HISTFILE" ] && HISTFILE="${HOME}/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=10000
 
