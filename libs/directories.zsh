@@ -12,7 +12,7 @@ fi
 
 # Set GRC command
 if [ $commands[grc] ]; then
-  export _GRC=("grc" "--config=~/.zsh/dotfiles/.lsregex")
+  export _GRC=("grc" "--config=${HOME}/.zsh/dotfiles/.lsregex")
 fi
 
 # Set ls args if supported
@@ -23,7 +23,7 @@ fi
 
 # Set ls file/folder colors
 if $(which dircolors >/dev/null 2>&1); then
-  eval `dircolors ~/.zsh/dotfiles/.lscolors`
+  eval `dircolors ${HOME}/.zsh/dotfiles/.lscolors`
 fi
 
 # Set aliases
