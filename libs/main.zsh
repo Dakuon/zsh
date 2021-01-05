@@ -1,26 +1,33 @@
 #######################
 # Libs
 #######################
-source ${HOME}/.zsh/libs/completion.zsh
-source ${HOME}/.zsh/libs/directories.zsh
-source ${HOME}/.zsh/libs/history.zsh
-source ${HOME}/.zsh/libs/keybinds.zsh
+source ~/.zsh/libs/completion.zsh
+source ~/.zsh/libs/directories.zsh
+source ~/.zsh/libs/history.zsh
+source ~/.zsh/libs/keybinds.zsh
 
 if [ $commands[kubectl] ]; then
-  source ${HOME}/.zsh/libs/kubectl.zsh
+  source ~/.zsh/libs/kubectl.zsh
 fi
 
 #######################
 # Completion
 #######################
 if [ $commands[hal] ]; then
-  source ${HOME}/.zsh/completion/halyard.zsh
+  source ~/.zsh/completion/halyard.zsh
 fi
 
 if [ $commands[helm] ]; then
-  source ${HOME}/.zsh/completion/helm.zsh
+  source ~/.zsh/completion/helm.zsh
 fi
 
 if [ $commands[kubeadm] ]; then
-  source ${HOME}/.zsh/completion/kubeadm.zsh
+  source ~/.zsh/completion/kubeadm.zsh
 fi
+
+if [ $commands[terraform] ]; then
+  source ~/.zsh/completion/terraform.zsh
+fi
+
+alias update-comp="COMP_UPDATE=true source ~/.zsh/libs/main.zsh"
+alias update-kubectl="KUBE_UPDATE=true source ~/.zsh/libs/main.zsh"

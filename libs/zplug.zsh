@@ -5,12 +5,12 @@ else
   ZLANG="en_US.UTF-8"
 fi
 
-if [ ! -d "${HOME}/.zplug" ]; then
+if [ ! -d ~/.zplug ]; then
   wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | LANG="${ZLANG}" zsh
   sleep 3
 fi
 
 # Load zplug
-source ${HOME}/.zplug/init.zsh
+source ~/.zplug/init.zsh
 # Fix zplug-command issue with LANG settings
 alias zplug="LANG=${ZLANG} zplug"

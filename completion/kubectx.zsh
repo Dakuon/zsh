@@ -1,12 +1,12 @@
 ###
-# Taken from ahmetb/kubectx - https://github.com/ahmetb/kubectx/blob/master/completion/kubectx.bash
+# Taken from ahmetb/kubectx - https://github.com/ahmetb/kubectx/blob/master/completion/kubens.bash
 ###
 
-_kube_namespaces()
+_kube_contexts()
 {
   local curr_arg;
   curr_arg=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "- $(kubectl get namespaces -o=jsonpath='{range .items[*].metadata.name}{@}{"\n"}{end}')" -- $curr_arg ) );
+  COMPREPLY=( $(compgen -W "- $(kubectl config get-contexts --output='name')" -- $curr_arg ) );
 }
 
-complete -F _kube_namespaces kubectl-ns kubens kns
+complete -F _kube_contexts kubectl-ctx kubectx kctx
