@@ -10,11 +10,6 @@ compinit
 # Install zplug
 source ~/.zsh/libs/zplug.zsh
 
-# Source cusom settings
-if [ -f ~/.zsh/custom.zsh ]; then
-  source ~/.zsh/custom.zsh
-fi
-
 # Install/Load plugins/theme
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "plugins/git", from:oh-my-zsh
@@ -106,3 +101,8 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+# Source cusom settings
+if [ -f ~/.zsh/custom.zsh ]; then
+  source ~/.zsh/custom.zsh
+fi
