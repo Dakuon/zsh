@@ -7,21 +7,6 @@ setopt no_nomatch
 autoload -Uz compinit
 compinit
 
-# Install zplug
-source ~/.zsh/libs/zplug.zsh
-
-# Install/Load plugins/theme
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/sudo", from:oh-my-zsh
-zplug "plugins/extract", from:oh-my-zsh
-zplug "plugins/command-not-found", from:oh-my-zsh
-zplug "ahmetb/kubectx", from:github
-zplug "zsh-users/zsh-autosuggestions", from:github
-zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
-zplug 'romkatv/powerlevel10k', as:theme, depth:1
-zplug load
-
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"
 # prompt settings
@@ -46,10 +31,26 @@ POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
 POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
 POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
 
+# Install zplug
+source ~/.zsh/libs/zplug.zsh
+
+# Install/Load plugins/theme
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/extract", from:oh-my-zsh
+zplug "plugins/command-not-found", from:oh-my-zsh
+zplug "ahmetb/kubectx", from:github
+zplug "zsh-users/zsh-autosuggestions", from:github
+zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
+zplug 'romkatv/powerlevel10k', as:theme, depth:1
+
 # Source cusom settings
 if [ -f ~/.zsh/custom.zsh ]; then
   source ~/.zsh/custom.zsh
 fi
+
+zplug load
 
 # plugin install and reload shell
 if ! zplug check --verbose; then
