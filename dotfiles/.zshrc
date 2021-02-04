@@ -53,8 +53,8 @@ zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 
 # Source cusom settings
-if [ -f ~/.zsh/custom.zsh ]; then
-  source ~/.zsh/custom.zsh
+if [ -f ~/.zsh/local/custom.zsh ]; then
+  source ~/.zsh/local/custom.zsh
 fi
 
 zplug load
