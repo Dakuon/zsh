@@ -34,6 +34,10 @@ POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
 POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
 POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
 
+# plugin settings
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret'
+
 # Install zplug
 source ~/.zsh/libs/zplug.zsh
 
@@ -78,10 +82,6 @@ fi
 
 # Load libs
 source ~/.zsh/libs/main.zsh
-
-# plugin settings
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
-POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret'
 
 # color formatting for man pages
 export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold
