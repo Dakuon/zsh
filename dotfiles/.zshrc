@@ -22,6 +22,35 @@ zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 zplug load
 
+# font settings
+POWERLEVEL9K_MODE="nerdfont-complete"
+# prompt settings
+POWERLEVEL9K_TRANSIENT_PROMPT=off
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time os_icon host user dir_writable dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext disk_usage load ram time)
+# prompt theme settings
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭─%F{red}'
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
+POWERLEVEL9K_TIME_BACKGROUND="black"
+POWERLEVEL9K_TIME_FOREGROUND="249"
+POWERLEVEL9K_OS_ICON_BACKGROUND="white"
+POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+POWERLEVEL9K_HOST_REMOTE_BACKGROUND="darkseagreen"
+POWERLEVEL9K_HOST_REMOTE_FOREGROUND="black"
+POWERLEVEL9K_HOST_LOCAL_BACKGROUND="darkseagreen"
+POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
+POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
+POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
+
+# Source cusom settings
+if [ -f ~/.zsh/custom.zsh ]; then
+  source ~/.zsh/custom.zsh
+fi
+
 # plugin install and reload shell
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -46,31 +75,8 @@ fi
 # Load libs
 source ~/.zsh/libs/main.zsh
 
-# font settings
-POWERLEVEL9K_MODE="nerdfont-complete"
-# prompt settings
-POWERLEVEL9K_TRANSIENT_PROMPT=off
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time os_icon host user dir_writable dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext disk_usage load ram time)
 function p10k-on-pre-prompt() { p10k display '1'=show '1/right'=show '1/left/time'=hide '1/left/os_icon'=show '1/left/host'=show '1/left/user'=show '1/left/dir_writeable'=show '1/left/dir'=show '1/left/vcs'=show '1/right/disk_usage'=show '1/right/load'=show '1/right/ram'=show '1/right/time'=show }
 function p10k-on-post-prompt() { p10k display '1/right'=show '1/left/time'=show '1/left/os_icon'=hide '1/left/host'=hide '1/left/user'=hide '1/left/dir_writeable'=hide '1/left/dir'=show '1/left/vcs'=hide '1/right/disk_usage'=hide '1/right/load'=hide '1/right/ram'=hide '1/right/time'=hide }
-# prompt theme settings
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭─%F{red}'
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
-POWERLEVEL9K_TIME_BACKGROUND="black"
-POWERLEVEL9K_TIME_FOREGROUND="249"
-POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-POWERLEVEL9K_HOST_REMOTE_BACKGROUND="darkseagreen"
-POWERLEVEL9K_HOST_REMOTE_FOREGROUND="black"
-POWERLEVEL9K_HOST_LOCAL_BACKGROUND="darkseagreen"
-POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
-POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
-POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
 
 # plugin settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
@@ -102,7 +108,3 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-# Source cusom settings
-if [ -f ~/.zsh/custom.zsh ]; then
-  source ~/.zsh/custom.zsh
-fi
