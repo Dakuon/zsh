@@ -1,4 +1,4 @@
-if [ ! -f ~/.completion/kubeadm.zsh || ${COMP_UPDATE} ]; then
+if [[ ! -f ~/.completion/kubeadm.zsh || ${COMP_UPDATE} ]]; then
   kubeadm completion zsh > ~/.completion/kubeadm.zsh
 fi
 
