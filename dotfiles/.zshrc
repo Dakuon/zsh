@@ -3,6 +3,7 @@ export HISTCONTROL="ignorespace"
 export LC_ALL=$LANG
 
 setopt no_nomatch
+setopt interactivecomments
 
 autoload -Uz compinit
 compinit
@@ -57,23 +58,33 @@ if [ -f ~/.zsh/local/custom.zsh ]; then
   source ~/.zsh/local/custom.zsh
 fi
 
-zplug load
-
 # plugin install and reload shell
 if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-    echo Reload zsh
-    exec zsh
+  if [ -z ${INST} ]; then
+    printf "Install? [y/N]: "
+    if read -q; then
+      echo; zplug install
+      echo Reload zsh
+      exec zsh
+    fi
+  else
+    zplug install
+    if [ ! -z ${AUTO} ]; then
+      echo Reload zsh
+      exec zsh
+    fi
   fi
 fi
+
+zplug load
 
 # Fix zplug folder permissions
 chmod -R 750 ~/.zplug
 
 # Load plugins not picked up zplug
-source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+if zplug check trapd00r/zsh-syntax-highlighting-filetypes; then
+  source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+fi
 
 # Create dir for completions
 if [ ! -d ~/.completion ]; then
@@ -109,3 +120,7 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
+if [[ ${INST} || ${AUTO} ]]; then
+  unset INST
+  unset AUTO
+fi
