@@ -1,8 +1,12 @@
 zplug_install () {
-  if [ -z $LANG ]; then
-    export LANG=en_US.UTF-8
+  if [[ $LANG != *"."* ]]; then
+    export LANG=${LANG}.UTF-8
   fi
-  
+
+  if [[ $LC_ALL != *"."* ]]; then
+    export LC_ALL=${LC_ALL}.UTF-8
+  fi
+
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 }
 
@@ -23,6 +27,7 @@ else
         source ~/.zplug/init.zsh
       fi
       echo;
+      cd;
       break
     fi
     source ~/.zplug/init.zsh >/dev/null 2>&1
