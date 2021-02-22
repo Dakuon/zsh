@@ -9,7 +9,7 @@ if [ ! -d ~/.zplug ]; then
 fi
 
 # Load zplug
-if [ -f "~/.zplug/init.zsh" ]; then
+if [ -f "${HOME}/.zplug/init.zsh" ]; then
   source ~/.zplug/init.zsh
 else
   until zplug info >/dev/null 2>&1; do
