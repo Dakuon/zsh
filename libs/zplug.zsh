@@ -1,6 +1,8 @@
 zplug_install () {
-  local LC_ALL=en_US.UTF-8
-
+  if [ -z $LANG ]; then
+    export LANG=en_US.UTF-8
+  fi
+  
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 }
 
