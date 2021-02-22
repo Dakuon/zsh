@@ -63,9 +63,11 @@ if ! zplug check --verbose; then
   if [ -z ${INST} ]; then
     printf "Install? [y/N]: "
     if read -q; then
-      echo; zplug install
+      echo;
+      zplug install
     fi
   else
+    echo;
     zplug install
   fi
 fi

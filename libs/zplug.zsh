@@ -15,11 +15,12 @@ else
   until zplug info >/dev/null 2>&1; do
     if [ $? != 127 ]; then
       cd ~/.zplug
-      git apply --check ~/.zsh/patches/zplug-pr474.patch
+      git apply --check ~/.zsh/patches/zplug-pr474.patch >/dev/null 2>&1
       if [ $? == 0 ]; then
         git apply ~/.zsh/patches/zplug-pr474.patch
         source ~/.zplug/init.zsh
       fi
+      echo;
       break
     fi
     source ~/.zplug/init.zsh >/dev/null 2>&1

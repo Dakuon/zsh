@@ -40,6 +40,7 @@ install_plugins () {
 
 # Install kubectl-krew if missing
 if [[ ! -d ~/.krew && ! -f ~/.skip_krew || ${KUBE_UPDATE} || ${INST} ]]; then
+  echo;
   if [ ! $commands[kubectl-krew] ]; then
     if [ -z ${INST} ]; then
       printf "Install kubectl-krew and plugins? [y/N]: "

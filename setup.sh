@@ -53,7 +53,12 @@ check_deps
 symlink
 
 if [[ ! -z $SETSHELL ]]; then
-  usermod --shell $(which zsh) ${USER}
+  echo;
+  echo "#################################################"
+  echo "# Changing shell, you might get password prompt #"
+  echo "#################################################"
+  chsh -s $(which zsh)
+  echo;
 fi
 
 eval $COMMANDENV $COMMAND
