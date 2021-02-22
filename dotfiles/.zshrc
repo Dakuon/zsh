@@ -64,15 +64,9 @@ if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
       echo; zplug install
-      echo Reload zsh
-      exec zsh
     fi
   else
     zplug install
-    if [ ! -z ${AUTO} ]; then
-      echo Reload zsh
-      exec zsh
-    fi
   fi
 fi
 
@@ -120,7 +114,6 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-if [[ ${INST} || ${AUTO} ]]; then
+if [[ ${INST} ]]; then
   unset INST
-  unset AUTO
 fi

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+COMMAND="exec zsh"
 
 check_deps () {
   echo Checking for dependencies
@@ -26,20 +27,20 @@ symlink () {
 for arg in "$@"; do
   case $arg in
     -h|--help)
-      echo "-u|--unattended - For scripted installers"
       echo "-a|--auto       - Install without prompts"
-      exit
-      ;;
-    -u|--unattended)
-      check_deps
-      symlink
-      INST=true zsh -i -c exit
+      echo "-u|--unattended - For scripted installers"
+      echo "-z|--zsh-shell  - Set ZSH as default shell"
       exit
       ;;
     -a|--auto)
-      check_deps
-      symlink
-      INST=true AUTO=true exec zsh
+      COMMANDENV="INST=true"
+      ;;
+    -u|--unattended)
+      COMMAND="zsh -i -c exit"
+      COMMANDENV="INST=true"
+      ;;
+    -z|--zsh-shell)
+      SETSHELL=true
       ;;
     *)
       echo "Use --help to list supported options"
@@ -48,8 +49,11 @@ for arg in "$@"; do
   esac
 done
 
-if [ "$#" -lt 1 ]; then
-  check_deps
-  symlink
-  exec zsh
+check_deps
+symlink
+
+if [[ ! -z $SETSHELL ]]; then
+  usermod --shell $(which zsh) ${USER}
 fi
+
+eval $COMMANDENV $COMMAND
