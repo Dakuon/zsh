@@ -41,7 +41,15 @@ for arg in "$@"; do
       symlink
       INST=true AUTO=true exec zsh
       ;;
+    *)
+      echo "Use --help to list supported options"
+      exit
+      ;;
   esac
 done
 
-exec zsh
+if [ "$#" -lt 1 ]; then
+  check_deps
+  symlink
+  exec zsh
+fi
