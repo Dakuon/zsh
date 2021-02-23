@@ -50,6 +50,7 @@ zplug "plugins/extract", from:oh-my-zsh
 zplug "plugins/command-not-found", from:oh-my-zsh
 zplug "ahmetb/kubectx", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
+zplug "MichaelAquilina/zsh-you-should-use", from:github
 zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 
