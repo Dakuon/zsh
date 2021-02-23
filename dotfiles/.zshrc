@@ -1,6 +1,7 @@
 export TERM="xterm-256color"
 export HISTCONTROL="ignorespace"
-export LC_ALL=$LANG
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 setopt no_nomatch
 setopt interactivecomments
