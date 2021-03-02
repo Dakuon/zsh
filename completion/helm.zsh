@@ -1,5 +1,3 @@
-if [[ ! -f ~/.completion/helm.zsh || ${COMP_UPDATE} ]]; then
-  helm completion zsh > ~/.completion/helm.zsh
+if [[ ! -f ~/.completion/_helm || ${COMP_UPDATE} ]]; then
+  helm completion zsh > ~/.completion/_helm
 fi
-
-source ~/.completion/helm.zsh

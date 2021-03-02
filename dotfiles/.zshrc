@@ -1,3 +1,4 @@
+export FPATH=~/.completion:$FPATH
 export TERM="xterm-256color"
 export HISTCONTROL="ignorespace"
 export LANG=en_US.UTF-8
