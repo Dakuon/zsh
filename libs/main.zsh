@@ -21,6 +21,10 @@ if [ $commands[kubeadm] ]; then
   source ~/.zsh/completion/kubeadm.zsh
 fi
 
+if [ $commands[kustomize] ]; then
+  source ~/.zsh/completion/kustomize.zsh
+fi
+
 if [ $commands[terraform] ]; then
   source ~/.zsh/completion/terraform.zsh
 fi
