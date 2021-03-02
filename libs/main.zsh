@@ -5,6 +5,7 @@ source ~/.zsh/libs/completion.zsh
 source ~/.zsh/libs/directories.zsh
 source ~/.zsh/libs/history.zsh
 source ~/.zsh/libs/keybinds.zsh
+source ~/.zsh/libs/title.zsh
 
 if [ $commands[kubectl] ]; then
   source ~/.zsh/libs/kubectl.zsh
