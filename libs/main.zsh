@@ -38,7 +38,5 @@ if [ $commands[aws-vault] ]; then
   source ~/.zsh/completion/aws-vault.zsh
 fi
 
-compinit
-
 alias update-comp="COMP_UPDATE=true source ~/.zsh/libs/main.zsh"
 alias update-kubectl="KUBE_UPDATE=true source ~/.zsh/libs/main.zsh"
