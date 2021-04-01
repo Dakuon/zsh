@@ -15,15 +15,26 @@ if [ $commands[grc] ]; then
   export _GRC=("grc" "--config=${HOME}/.zsh/dotfiles/.lsregex")
 fi
 
+$_LS --time-style="+%d-%m-%Y %H:%M" > /dev/null 2>&1
+if [ $? == 0 ]; then
+  export LS_ARGS=("--time-style=+%d-%m-%Y %H:%M")
+fi
+
 # Set ls args if supported
 $_LS --color > /dev/null 2>&1
 if [ $? == 0 ]; then
-  export LS_ARGS=("--group-directories-first" "--color" "--time-style=+%d-%m-%Y %H:%M")
+  export LS_ARGS=(${LS_ARGS} "--color")
+fi
+
+# Set ls args if supported
+$_LS --group-directories-first > /dev/null 2>&1
+if [ $? == 0 ]; then
+  export LS_ARGS=(${LS_ARGS} "--group-directories-first")
 fi
 
 # Set ls file/folder colors
-if $(which dircolors >/dev/null 2>&1); then
-  eval `dircolors ${HOME}/.zsh/dotfiles/.lscolors`
+if [ $commands[dircolors] ]; then
+  eval "$(dircolors ${HOME}/.zsh/dotfiles/.lscolors)"
 fi
 
 # Set aliases
