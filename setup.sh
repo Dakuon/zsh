@@ -3,9 +3,28 @@
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 COMMAND="exec zsh"
 
+PROGS="zsh git wget python3"
+
+if [ "$(uname -s)" == "Linux" ]; then
+  PROGS="$PROGS gawk"
+fi
+
+if [[ "$(uname -s)" == "Darwin" && ! $commands[gls] ]]; then
+  echo "OPT: Install coreutils to colorise file/dir with ls"
+fi
+
+if [ ! $commands[grc] ]; then
+  echo "OPT: Install GRC to colorise ls"
+fi
+
+if [[ $commands[kubectl] && ! $commands[jq] ]]; then
+  echo "OPT: Install jq to enable ksview completion"
+fi
+
+
 check_deps () {
   echo Checking for dependencies
-  for PROG in zsh git wget grc python3 jq gawk; do
+  for PROG in $PROGS; do
     if ! $(which ${PROG} >/dev/null 2>&1); then
       echo Missing ${PROG}
       MISSING=1
