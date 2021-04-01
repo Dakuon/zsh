@@ -1,6 +1,3 @@
-if [[ ! -f ~/.completion/kubectl.zsh || ${COMP_UPDATE} ]]; then
-  kubectl completion zsh > ~/.completion/kubectl.zsh
+if [[ ! -f ~/.completion/_kubectl || ${COMP_UPDATE} ]]; then
+  kubectl completion zsh > ~/.completion/_kubectl
 fi
-
-source ~/.completion/kubectl.zsh
-

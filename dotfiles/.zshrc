@@ -1,55 +1,14 @@
+export FPATH=~/.completion:$FPATH
 export TERM="xterm-256color"
 export HISTCONTROL="ignorespace"
-export LC_ALL=$LANG
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 setopt no_nomatch
+setopt interactivecomments
 
 autoload -Uz compinit
 compinit
-
-# Install zplug
-source ~/.zsh/libs/zplug.zsh
-
-# Source cusom settings
-if [ -f ~/.zsh/custom.zsh ]; then
-  source ~/.zsh/custom.zsh
-fi
-
-# Install/Load plugins/theme
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/sudo", from:oh-my-zsh
-zplug "plugins/extract", from:oh-my-zsh
-zplug "plugins/command-not-found", from:oh-my-zsh
-zplug "ahmetb/kubectx", from:github
-zplug "zsh-users/zsh-autosuggestions", from:github
-zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
-zplug 'romkatv/powerlevel10k', as:theme, depth:1
-zplug load
-
-# plugin install and reload shell
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-    echo Reload zsh
-    exec zsh
-  fi
-fi
-
-# Fix zplug folder permissions
-chmod -R 750 ~/.zplug
-
-# Load plugins not picked up zplug
-source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
-
-# Create dir for completions
-if [ ! -d ~/.completion ]; then
-  mkdir -p ~/.completion
-fi
-
-# Load libs
-source ~/.zsh/libs/main.zsh
 
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"
@@ -60,6 +19,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time os_icon host user dir_writable dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext disk_usage load ram time)
 function p10k-on-pre-prompt() { p10k display '1'=show '1/right'=show '1/left/time'=hide '1/left/os_icon'=show '1/left/host'=show '1/left/user'=show '1/left/dir_writeable'=show '1/left/dir'=show '1/left/vcs'=show '1/right/disk_usage'=show '1/right/load'=show '1/right/ram'=show '1/right/time'=show }
 function p10k-on-post-prompt() { p10k display '1/right'=show '1/left/time'=show '1/left/os_icon'=hide '1/left/host'=hide '1/left/user'=hide '1/left/dir_writeable'=hide '1/left/dir'=show '1/left/vcs'=hide '1/right/disk_usage'=hide '1/right/load'=hide '1/right/ram'=hide '1/right/time'=hide }
+
 # prompt theme settings
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭─%F{red}'
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
@@ -80,6 +40,58 @@ POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
 # plugin settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
 POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret'
+
+# Install zplug
+source ~/.zsh/libs/zplug.zsh
+
+# Install/Load plugins/theme
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "plugins/extract", from:oh-my-zsh
+zplug "plugins/command-not-found", from:oh-my-zsh
+zplug "ahmetb/kubectx", from:github
+zplug "zsh-users/zsh-autosuggestions", from:github
+zplug "MichaelAquilina/zsh-you-should-use", from:github
+zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
+zplug 'romkatv/powerlevel10k', as:theme, depth:1
+
+# Source cusom settings
+if [ -f ~/.zsh/local/custom.zsh ]; then
+  source ~/.zsh/local/custom.zsh
+fi
+
+# plugin install and reload shell
+if ! zplug check --verbose; then
+  if [ -z ${INST} ]; then
+    printf "Install? [y/N]: "
+    if read -q; then
+      echo;
+      zplug install
+    fi
+  else
+    echo;
+    zplug install
+  fi
+fi
+
+zplug load
+
+# Fix zplug folder permissions
+chmod -R 750 ~/.zplug
+
+# Load plugins not picked up zplug
+if zplug check trapd00r/zsh-syntax-highlighting-filetypes; then
+  source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+fi
+
+# Create dir for completions
+if [ ! -d ~/.completion ]; then
+  mkdir -p ~/.completion
+fi
+
+# Load libs
+source ~/.zsh/libs/main.zsh
 
 # color formatting for man pages
 export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold
@@ -106,3 +118,7 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+if [[ ${INST} ]]; then
+  unset INST
+fi

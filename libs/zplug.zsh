@@ -1,16 +1,31 @@
-# zplug-install/use fails if locale is set without .UTF-8
-if [[ "${LANG}" == *".UTF-8" ]]; then
-  ZLANG="${LANG}"
-else
-  ZLANG="en_US.UTF-8"
-fi
+zplug_install () {
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+}
 
-if [ ! -d ~/.zplug ]; then
-  wget -qO- https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | LANG="${ZLANG}" zsh
-  sleep 3
+zplug_patch () {
+  cd ~/.zplug
+  git apply --check ~/.zsh/patches/zplug-pr474.patch
+  if [ $? == 0 ]; then
+    git apply ~/.zsh/patches/zplug-pr474.patch
+  fi
+  echo;
+  cd;
+}
+
+# Install zplug and patch it
+if [ ! -d "${HOME}/.zplug" ]; then
+  zplug_install
+  until ls ${HOME}/.zplug/base/job/handle.zsh >/dev/null 2>&1; do
+    sleep 0.1
+  done
+  zplug_patch
 fi
 
 # Load zplug
-source ~/.zplug/init.zsh
-# Fix zplug-command issue with LANG settings
-alias zplug="LANG=${ZLANG} zplug"
+until zplug info >/dev/null 2>&1; do
+  if [ $? != 127 ]; then
+    break
+  fi
+  source ~/.zplug/init.zsh >/dev/null 2>&1
+  sleep 0.1
+done
