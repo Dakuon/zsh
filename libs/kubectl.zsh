@@ -75,4 +75,6 @@ alias ksview=~/.krew/bin/kubectl-view_secret
 source ~/.zsh/completion/kubectl.zsh
 source ~/.zsh/completion/kubens.zsh
 source ~/.zsh/completion/kubectx.zsh
-source ~/.zsh/completion/kubesecret.zsh
+if [ $commands[jq] ]; then
+  source ~/.zsh/completion/kubesecret.zsh
+fi
