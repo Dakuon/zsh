@@ -53,12 +53,14 @@ check_deps
 symlink
 
 if [[ ! -z $SETSHELL ]]; then
-  echo;
-  echo "#################################################"
-  echo "# Changing shell, you might get password prompt #"
-  echo "#################################################"
-  chsh -s $(which zsh)
-  echo;
+  if [ $(basename -- $SHELL) != "zsh" ] then
+    echo;
+    echo "#################################################"
+    echo "# Changing shell, you might get password prompt #"
+    echo "#################################################"
+    chsh -s $(which zsh)
+    echo;
+  fi
 fi
 
 eval $COMMANDENV $COMMAND
