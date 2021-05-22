@@ -54,6 +54,7 @@ zplug "ahmetb/kubectx", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
 zplug "MichaelAquilina/zsh-you-should-use", from:github
 zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
+zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 
 # Source cusom settings
@@ -119,6 +120,4 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-if [[ ${INST} ]]; then
-  unset INST
-fi
+compinit

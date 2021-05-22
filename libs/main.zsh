@@ -6,6 +6,7 @@ source ~/.zsh/libs/directories.zsh
 source ~/.zsh/libs/history.zsh
 source ~/.zsh/libs/keybinds.zsh
 source ~/.zsh/libs/title.zsh
+source ~/.zsh/libs/ssh.zsh
 
 if [ $commands[kubectl] ]; then
   source ~/.zsh/libs/kubectl.zsh
@@ -36,6 +37,10 @@ fi
 
 if [ $commands[aws-vault] ]; then
   source ~/.zsh/completion/aws-vault.zsh
+fi
+
+if [[ ${INST} ]]; then
+  unset INST
 fi
 
 alias update-comp="COMP_UPDATE=true source ~/.zsh/libs/main.zsh"
