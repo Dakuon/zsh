@@ -23,7 +23,7 @@ install_krew () {
 
 # Install plugins
 install_plugins () {
-  for PLUGIN in ctx ns konfig view-secret; do
+  for PLUGIN in ctx ns konfig view-secret neat; do
     install=true
     for INSTALLED in $(kubectl krew list | grep -v PLUGIN); do
       if [[ ${PLUGIN} == ${INSTALLED} ]]; then
