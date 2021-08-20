@@ -39,7 +39,7 @@ POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
 
 # plugin settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
-POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret'
+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|kubecolor|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret|kubectl-neat'
 
 # Install zplug
 source ~/.zsh/libs/zplug.zsh

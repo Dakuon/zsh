@@ -66,15 +66,30 @@ if [[ ! -d ~/.krew && ! -f ~/.skip_krew || ${KUBE_UPDATE} || ${INST} ]]; then
 fi
 
 # Set up commands
-alias k=kubectl
-alias kkrew=~/.krew/bin/kubectl-krew
-alias kns=~/.krew/bin/kubectl-ns
-alias kctx=~/.krew/bin/kubectl-ctx
-alias ksview=~/.krew/bin/kubectl-view_secret
 
+# kubectl-krew
+alias kkrew=~/.krew/bin/kubectl-krew
+
+# kubectl
 source ~/.zsh/completion/kubectl.zsh
+if [ $commands[kubecolor] ]; then
+  compdef kubecolor=kubectl
+fi
+alias k=kubecolor
+
+# kubectl-ns
 source ~/.zsh/completion/kubens.zsh
+alias kns=~/.krew/bin/kubectl-ns
+
+# kubectl-ctx
 source ~/.zsh/completion/kubectx.zsh
+alias kctx=~/.krew/bin/kubectl-ctx
+
+# kubectl-secret_view
 if [ $commands[jq] ]; then
   source ~/.zsh/completion/kubesecret.zsh
+  alias ksview=~/.krew/bin/kubectl-view_secret
 fi
+
+# kubectl-neat
+alias kn=~/.krew/bin/kubectl-neat
