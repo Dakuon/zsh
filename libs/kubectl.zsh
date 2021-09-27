@@ -74,8 +74,10 @@ alias kkrew=~/.krew/bin/kubectl-krew
 source ~/.zsh/completion/kubectl.zsh
 if [ $commands[kubecolor] ]; then
   compdef kubecolor=kubectl
+  alias k=kubecolor
+else
+  alias k=kubectl
 fi
-alias k=kubecolor
 
 # kubectl-ns
 source ~/.zsh/completion/kubens.zsh
