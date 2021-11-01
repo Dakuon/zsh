@@ -56,6 +56,8 @@ zplug "MichaelAquilina/zsh-you-should-use", from:github
 zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
+zplug "junegunn/fzf-bin", from:github, as:command, rename-to:fzf, use:"*linux*amd64*"
+zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 
 # Source custom settings
 if [ -f ~/.zsh/local/custom.zsh ]; then
