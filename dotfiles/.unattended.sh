@@ -2,6 +2,6 @@
 
 INST=true
 
-source ~/.zshrc
+source ~/.zsh/dotfiles/.zshrc
 
 unset INST
