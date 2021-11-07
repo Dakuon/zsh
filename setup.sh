@@ -55,8 +55,7 @@ for arg in "$@"; do
       COMMANDENV="INST=true"
       ;;
     -u|--unattended)
-      COMMAND="zsh -i -c exit"
-      COMMANDENV="INST=true"
+      COMMAND="~/.zsh/dotfiles/.unattended.sh"
       ;;
     -z|--zsh-shell)
       SETSHELL=true
