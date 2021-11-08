@@ -6,6 +6,7 @@ export LC_ALL=en_US.UTF-8
 
 setopt no_nomatch
 setopt interactivecomments
+setopt hash_list_all
 
 autoload -Uz compinit
 compinit
@@ -15,18 +16,17 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 # prompt settings
 POWERLEVEL9K_TRANSIENT_PROMPT=off
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time os_icon host user dir_writable dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(time os_icon context dir_writable dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(kubecontext disk_usage load ram time)
-function p10k-on-pre-prompt() { p10k display '1'=show '1/right'=show '1/left/time'=hide '1/left/os_icon'=show '1/left/host'=show '1/left/user'=show '1/left/dir_writeable'=show '1/left/dir'=show '1/left/vcs'=show '1/right/disk_usage'=show '1/right/load'=show '1/right/ram'=show '1/right/time'=show }
-function p10k-on-post-prompt() { p10k display '1/right'=show '1/left/time'=show '1/left/os_icon'=hide '1/left/host'=hide '1/left/user'=hide '1/left/dir_writeable'=hide '1/left/dir'=show '1/left/vcs'=hide '1/right/disk_usage'=hide '1/right/load'=hide '1/right/ram'=hide '1/right/time'=hide }
+function p10k-on-pre-prompt() { p10k display '1'=show '1/right'=show '1/left/time'=hide '1/left/os_icon'=show '1/left/context'=show '1/left/dir_writeable'=show '1/left/dir'=show '1/left/vcs'=show '1/right/disk_usage'=show '1/right/load'=show '1/right/ram'=show '1/right/time'=show }
+function p10k-on-post-prompt() { p10k display '1/right'=show '1/left/time'=show '1/left/os_icon'=hide '1/left/context'=show '1/left/dir_writeable'=hide '1/left/dir'=show '1/left/vcs'=hide '1/right/disk_usage'=hide '1/right/load'=hide '1/right/ram'=hide '1/right/time'=hide }
 
 # prompt theme settings
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭─%F{red}'
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
 POWERLEVEL9K_TIME_BACKGROUND="black"
 POWERLEVEL9K_TIME_FOREGROUND="249"
-POWERLEVEL9K_OS_ICON_BACKGROUND="white"
-POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
+POWERLEVEL9K_OS_ICON_BACKGROUND="black"
 POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
@@ -36,6 +36,17 @@ POWERLEVEL9K_HOST_LOCAL_BACKGROUND="darkseagreen"
 POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
 POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
 POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
+POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=160
+POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=7
+POWERLEVEL9K_CONTEXT_REMOTE_FOREGROUND=232
+POWERLEVEL9K_CONTEXT_REMOTE_SUDO_FOREGROUND=232
+POWERLEVEL9K_CONTEXT_REMOTE_BACKGROUND=7
+POWERLEVEL9K_CONTEXT_REMOTE_SUDO_BACKGROUND=7
+POWERLEVEL9K_CONTEXT_FOREGROUND=232
+POWERLEVEL9K_CONTEXT_BACKGROUND=7
+POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%n@%m'
+POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='%n@%m'
+POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='%n@%m'
 
 # plugin settings
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
@@ -46,6 +57,7 @@ source ~/.zsh/libs/zplug.zsh
 
 # Install/Load plugins/theme
 zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "zsh-users/zsh-completions", from:github
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/extract", from:oh-my-zsh
@@ -56,7 +68,6 @@ zplug "MichaelAquilina/zsh-you-should-use", from:github
 zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
-zplug "junegunn/fzf-bin", from:github, as:command, rename-to:fzf, use:"*linux*amd64*"
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 
 # Source custom settings
@@ -109,6 +120,15 @@ export MANPAGER='less -s -M -R +Gg'
 
 # set auto-completion colors
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# allow zsh to rehash command list
+zstyle ":completion:*:commands" rehash 1
+
+# formatting and messages
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 
 # fix slow-paste caused by zsh-autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238#issuecomment-389324292
