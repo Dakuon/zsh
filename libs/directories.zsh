@@ -33,7 +33,7 @@ if [ $? == 0 ]; then
 fi
 
 # Set ls file/folder colors
-if [ $commands[dircolors] ]; then
+if [[ $commands[dircolors] || $commands[gdircolors] ]]; then
   eval "$(dircolors ${HOME}/.zsh/dotfiles/.lscolors)"
 fi
 
