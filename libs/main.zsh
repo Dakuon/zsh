@@ -1,6 +1,7 @@
 #######################
 # Libs
 #######################
+source ~/.zsh/libs/comp.zsh
 source ~/.zsh/libs/completion.zsh
 source ~/.zsh/libs/directories.zsh
 source ~/.zsh/libs/history.zsh

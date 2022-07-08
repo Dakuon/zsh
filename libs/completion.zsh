@@ -75,6 +75,3 @@ if [[ $COMPLETION_WAITING_DOTS = true ]]; then
   zle -N expand-or-complete-with-dots
   bindkey "^I" expand-or-complete-with-dots
 fi
-
-# automatically load bash completion functions
-autoload -Uz bashcompinit && bashcompinit

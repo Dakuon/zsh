@@ -76,7 +76,4 @@ function d () {
   fi
 }
 
-autoload -Uz compinit
-compinit
-
 compdef _dirs d

@@ -8,9 +8,6 @@ setopt no_nomatch
 setopt interactivecomments
 setopt hash_list_all
 
-autoload -Uz compinit
-compinit
-
 # font settings
 POWERLEVEL9K_MODE="nerdfont-complete"
 # prompt settings
@@ -49,6 +46,7 @@ POWERLEVEL9K_CONTEXT_REMOTE_TEMPLATE='%n@%m'
 POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='%n@%m'
 
 # plugin settings
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
 POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|kubecolor|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret|kubectl-neat'
 
@@ -64,8 +62,8 @@ zplug "plugins/extract", from:oh-my-zsh
 zplug "plugins/command-not-found", from:oh-my-zsh
 zplug "ahmetb/kubectx", from:github
 zplug "zsh-users/zsh-autosuggestions", from:github
+zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
 zplug "MichaelAquilina/zsh-you-should-use", from:github
-zplug "trapd00r/zsh-syntax-highlighting-filetypes", defer:3
 zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
@@ -89,15 +87,14 @@ if ! zplug check --verbose; then
   fi
 fi
 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 zplug load
 
 # Fix zplug folder permissions
 chmod -R 750 ~/.zplug
-
-# Load plugins not picked up zplug
-if zplug check trapd00r/zsh-syntax-highlighting-filetypes; then
-  source ~/.zplug/repos/trapd00r/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
-fi
 
 # Create dir for completions
 if [ ! -d ~/.completion ]; then
