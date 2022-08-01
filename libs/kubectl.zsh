@@ -3,6 +3,9 @@
 # Add ~/.krew/bin to path
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
+# Plugins
+PLUGINS=(ctx ns konfig view-secret neat)
+
 # Remove skip-file
 remove_skip () {
   if [ -f ~/.skip_krew ]; then
@@ -25,15 +28,9 @@ install_krew () {
 
 # Install plugins
 install_plugins () {
-  for PLUGIN in ctx ns konfig view-secret neat; do
-    install=true
-    for INSTALLED in $(kubectl krew list | grep -v PLUGIN); do
-      if [[ ${PLUGIN} == ${INSTALLED} ]]; then
-        install=false
-        continue
-      fi
-    done
-    if $install; then
+  INSTALLED_PLUGINS=($(kubectl krew list | tail -n+1))
+  for PLUGIN in ${PLUGINS[*]}; do
+    if [[ ! "${INSTALLED_PLUGINS[*]}" =~ "${PLUGIN}" ]]; then
       echo "Installing kubectl-${PLUGIN}"
       kubectl krew install ${PLUGIN} 2> /dev/null
     fi
@@ -62,7 +59,8 @@ if [[ ! -d ~/.krew && ! -f ~/.skip_krew || ${KUBE_UPDATE} || ${INST} ]]; then
       remove_skip
     fi
   else
-    echo "Updating plugins"
+    echo "Installing/Updating plugins"
+    install_plugins
     kubectl-krew upgrade
   fi
 fi
