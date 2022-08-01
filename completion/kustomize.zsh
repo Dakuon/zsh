@@ -1,4 +1,4 @@
-if [[ ! -f ~/.completion/_kustomize || ${COMP_UPDATE} ]]; then
+if [[ ! -f ~/.completion/_kustomize || "$(which kustomize)" -nt ~/.completion/_kustomize ]]; then
   kustomize completion zsh > ~/.completion/_kustomize
 fi
 
