@@ -45,5 +45,4 @@ if [[ ${INST} ]]; then
 fi
 
 alias update-zsh="update_zsh"
-alias update-comp="COMP_UPDATE=true source ~/.zsh/libs/main.zsh"
 alias update-kubectl="KUBE_UPDATE=true source ~/.zsh/libs/main.zsh"
