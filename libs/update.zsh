@@ -1,4 +1,4 @@
-function update_zsh {
+function _update_zsh {
   CDIR=$(pwd)
   cd ${HOME}/.zsh
   git pull

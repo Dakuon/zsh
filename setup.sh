@@ -9,15 +9,15 @@ if [ "$(uname -s)" == "Linux" ]; then
   PROGS="$PROGS gawk"
 fi
 
-if [[ "$(uname -s)" == "Darwin" && ! $commands[gls] ]]; then
+if [[ "$(uname -s)" == "Darwin" && ! "${commands[gls]}" ]]; then
   echo "OPT: Install coreutils to colorise file/dir with ls"
 fi
 
-if [ ! $commands[grc] ]; then
+if [ ! "${commands[grc]}" ]; then
   echo "OPT: Install GRC to colorise ls"
 fi
 
-if [[ $commands[kubectl] && ! $commands[jq] ]]; then
+if [[ "${commands[kubectl]}" && ! "${commands[jq]}" ]]; then
   echo "OPT: Install jq to enable ksview completion"
 fi
 
@@ -25,11 +25,11 @@ fi
 check_deps () {
   echo Checking for dependencies
   for PROG in $PROGS; do
-    if ! $(which ${PROG} >/dev/null 2>&1); then
-      echo Missing ${PROG}
+    if ! which "${PROG}" >/dev/null 2>&1; then
+      echo "Missing ${PROG}"
       MISSING=1
     else
-      echo Found ${PROG}
+      echo "Found ${PROG}"
     fi
   done
 
@@ -40,7 +40,8 @@ check_deps () {
 }
 
 symlink () {
-  ln -sf $BASE_DIR/dotfiles/.zshrc $HOME/.zshrc
+  ln -sf "${BASE_DIR}/dotfiles/.zshrc" "${HOME}/.zshrc"
+  ln -sf "${BASE_DIR}/dotfiles/.zimrc" "${HOME}/.zimrc"
 }
 
 for arg in "$@"; do
@@ -55,7 +56,7 @@ for arg in "$@"; do
       COMMANDENV="INST=true"
       ;;
     -u|--unattended)
-      COMMAND="~/.zsh/dotfiles/.unattended.sh"
+      COMMAND="${HOME}/.zsh/dotfiles/.unattended.sh"
       ;;
     -z|--zsh-shell)
       SETSHELL=true
@@ -70,15 +71,15 @@ done
 check_deps
 symlink
 
-if [[ ! -z $SETSHELL ]]; then
-  if [ $(basename -- $SHELL) != "zsh" ]; then
+if [[ -n $SETSHELL ]]; then
+  if [ "$(basename -- "$SHELL")" != "zsh" ]; then
     echo;
     echo "#################################################"
     echo "# Changing shell, you might get password prompt #"
     echo "#################################################"
-    chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
     echo;
   fi
 fi
 
-eval $COMMANDENV $COMMAND
+eval ${COMMANDENV} "${COMMAND}"

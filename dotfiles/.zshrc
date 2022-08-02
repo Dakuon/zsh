@@ -1,4 +1,5 @@
 export FPATH=~/.completion:$FPATH
+export ZIM_HOME=~/.zim
 export TERM="xterm-256color"
 export HISTCONTROL="ignorespace"
 export LANG=en_US.UTF-8
@@ -31,8 +32,8 @@ POWERLEVEL9K_HOST_REMOTE_BACKGROUND="darkseagreen"
 POWERLEVEL9K_HOST_REMOTE_FOREGROUND="black"
 POWERLEVEL9K_HOST_LOCAL_BACKGROUND="darkseagreen"
 POWERLEVEL9K_HOST_LOCAL_FOREGROUND="black"
-POWERLEVEL9K_KUBECONTEXT_BACKGROUND="blue"
-POWERLEVEL9K_KUBECONTEXT_FOREGROUND="white"
+POWERLEVEL9K_AWS_BACKGROUND="blue"
+POWERLEVEL9K_AWS_FOREGROUND="white"
 POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=160
 POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND=7
 POWERLEVEL9K_CONTEXT_REMOTE_FOREGROUND=232
@@ -48,61 +49,34 @@ POWERLEVEL9K_CONTEXT_REMOTE_SUDO_TEMPLATE='%n@%m'
 # plugin settings
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,bold,underline"
-POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|kubecolor|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret|kubectl-neat'
 
-# Install zplug
-source ~/.zsh/libs/zplug.zsh
-
-# Install/Load plugins/theme
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "zsh-users/zsh-completions", from:github
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/sudo", from:oh-my-zsh
-zplug "plugins/extract", from:oh-my-zsh
-zplug "plugins/command-not-found", from:oh-my-zsh
-zplug "ahmetb/kubectx", from:github
-zplug "zsh-users/zsh-autosuggestions", from:github
-zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
-zplug "MichaelAquilina/zsh-you-should-use", from:github
-zplug "bobsoppe/zsh-ssh-agent", use:ssh-agent.zsh, from:github
-zplug 'romkatv/powerlevel10k', as:theme, depth:1
-zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
+# kubectl customizations
+POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|kubecolor|helm|kubectl-ns|kubectl-ctx|oc|istioctl|kogito|kubectl-view_secret|kubectl-neat|k9s'
+POWERLEVEL9K_KUBECONTEXT_DEV_VISUAL_IDENTIFIER_EXPANSION='✅'
+POWERLEVEL9K_KUBECONTEXT_DEV_CONTENT_EXPANSION='AWS-Dev > ${P9K_CONTENT} <'
+POWERLEVEL9K_KUBECONTEXT_PROD_VISUAL_IDENTIFIER_EXPANSION='🔥'
+POWERLEVEL9K_KUBECONTEXT_PROD_CONTENT_EXPANSION='AWS-Prod > ${P9K_CONTENT} <'
+POWERLEVEL9K_KUBECONTEXT_DEFAULT_BACKGROUND="blue"
+POWERLEVEL9K_KUBECONTEXT_DEV_BACKGROUND="darkgreen"
+POWERLEVEL9K_KUBECONTEXT_PROD_BACKGROUND="darkred"
+POWERLEVEL9K_KUBECONTEXT_CLASSES=('*dev*' DEV '*prod*' PROD '*' DEFAULT)
 
 # Source custom settings
 if [ -f ~/.zsh/local/custom.zsh ]; then
   source ~/.zsh/local/custom.zsh
 fi
 
-# plugin install and reload shell
-if ! zplug check --verbose; then
-  if [ -z ${INST} ]; then
-    printf "Install? [y/N]: "
-    if read -q; then
-      echo;
-      zplug install
-    fi
-  else
-    echo;
-    zplug install
-  fi
-fi
+# Load libs
+source ~/.zsh/libs/main.zsh
 
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-zplug load
-
-# Fix zplug folder permissions
-chmod -R 750 ~/.zplug
-
 # Create dir for completions
 if [ ! -d ~/.completion ]; then
   mkdir -p ~/.completion
 fi
-
-# Load libs
-source ~/.zsh/libs/main.zsh
 
 # color formatting for man pages
 export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold

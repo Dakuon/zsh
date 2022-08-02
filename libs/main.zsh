@@ -2,6 +2,7 @@
 # Libs
 #######################
 source ~/.zsh/libs/comp.zsh
+source ~/.zsh/libs/zimfw.zsh
 source ~/.zsh/libs/completion.zsh
 source ~/.zsh/libs/directories.zsh
 source ~/.zsh/libs/history.zsh
@@ -44,5 +45,7 @@ if [[ ${INST} ]]; then
   unset INST
 fi
 
-alias update-zsh="update_zsh"
+source ~/.zsh/libs/zcompile.zsh
+
+alias update-zsh="_update_zsh"
 alias update-kubectl="KUBE_UPDATE=true source ~/.zsh/libs/main.zsh"
