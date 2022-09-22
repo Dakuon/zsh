@@ -8,8 +8,8 @@ INCLUDES=()
 USERS=("root" ${USER})
 
 if [ -f ~/.ssh/config ]; then
-  HOSTS=(${HOSTS} ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-  INCLUDES=($(awk '/Include/{print $2}' ~/.ssh/config))
+  HOSTS=(${HOSTS} ${${${(@M)${(f)"$(cat ${HOME}/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+  INCLUDES=($(awk '/Include/{print $2}' ${HOME}/.ssh/config))
 fi
 
 if [ ! ${#INCLUDES[@]} -eq 0 ]; then
