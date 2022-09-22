@@ -41,6 +41,12 @@ if [ $commands[aws-vault] ]; then
   source ~/.zsh/completion/aws-vault.zsh
 fi
 
+if [ $commands[podman] ]; then
+  source ~/.zsh/completion/podman.zsh
+fi
+
+rehash -f
+
 if [[ ${INST} ]]; then
   unset INST
 fi
