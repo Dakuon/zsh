@@ -1,3 +1,7 @@
+if [ ! -f "${HOME}/.zimrc" ]; then
+  ln -s "${HOME}/.zsh/dotfiles/.zimrc" "${HOME}/.zimrc"
+fi
+
 # zimfw settings
 zstyle ':zim:zmodule' use 'degit'
 
