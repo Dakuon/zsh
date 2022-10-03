@@ -40,8 +40,10 @@ fi
 # Set aliases
 alias ls='$_GRC $_LS $LS_ARGS -C $@'
 alias l='$_GRC $_LS $LS_ARGS -lh -F $@'
+alias lx='$_GRC $_LS $LS_ARGS -lh -F -X $@'
 alias la='$_GRC $_LS $LS_ARGS -C -A $@'
 alias ll='$_GRC $_LS $LS_ARGS -lh -FA $@'
+alias llx='$_GRC $_LS $LS_ARGS -lh -FA -X $@'
 
 # Changing/making/removing directory
 setopt autocd
