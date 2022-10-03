@@ -4,7 +4,7 @@
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Plugins
-PLUGINS=(ctx ns konfig view-secret neat)
+PLUGINS=(ctx ns konfig view-secret neat images df_pv iexec)
 
 # Remove skip-file
 remove_skip () {
@@ -74,8 +74,10 @@ alias kkrew=~/.krew/bin/kubectl-krew
 source ~/.zsh/completion/kubectl.zsh
 if [ $commands[kubecolor] ]; then
   compdef kubecolor=kubectl
+  export _KUBECTL=(=kubecolor)
   alias k=kubecolor
 else
+  export _KUBECTL=(=kubectl)
   alias k=kubectl
 fi
 
@@ -95,3 +97,76 @@ fi
 
 # kubectl-neat
 alias kn=~/.krew/bin/kubectl-neat
+
+alias kg='$_KUBECTL get -owide'
+alias kgy='$_KUBECTL get -oyaml $@'
+alias kd='$_KUBECTL describe'
+alias ka='$_KUBECTL apply -f $@'
+alias kak='$_KUBECTL apply -k $@'
+alias krm='$_KUBECTL delete'
+
+alias kgp='$_KUBECTL get pods -owide'
+alias kgpy='$_KUBECTL get pods -oyaml'
+alias kdp='$_KUBECTL describe pod'
+alias ktp='$_KUBECTL top pods'
+
+alias kgn='$_KUBECTL get node -owide'
+alias kgny='$_KUBECTL get node -oyaml'
+alias kdn='$_KUBECTL describe node'
+alias ktn='$_KUBECTL top node'
+
+alias kgsvc='$_KUBECTL get svc -owide'
+alias kgsvcy='$_KUBECTL get svc -oyaml'
+alias kdsvc='$_KUBECTL describe svc'
+
+alias kgns='$_KUBECTL get ns'
+alias kgnsy='$_KUBECTL get nsy -oyaml'
+alias kdns='$_KUBECTL describe ns'
+
+alias kgsa='$_KUBECTL get sa'
+alias kgsay='$_KUBECTL get sa -oyaml'
+alias kdsa='$_KUBECTL describe sa'
+
+alias kgsec='$_KUBECTL get secret'
+alias kgsecy='$_KUBECTL get secret -oyaml'
+alias kdsec='$_KUBECTL describe secret'
+
+alias kgcm='$_KUBECTL get configmap'
+alias kgcmy='$_KUBECTL get configmap -oyaml'
+alias kdcm='$_KUBECTL describe configmap'
+
+alias kgdep='$_KUBECTL get deployment'
+alias kgdepy='$_KUBECTL get deployment -oyaml'
+alias kddep='$_KUBECTL describe deployment'
+
+alias kgsta='$_KUBECTL get statefulset'
+alias kgstay='$_KUBECTL get statefulset -oyaml'
+alias kdsta='$_KUBECTL describe statefulset'
+
+alias kgdae='$_KUBECTL get daemonset'
+alias kgdaey='$_KUBECTL get daemonset -oyaml'
+alias kddae='$_KUBECTL describe daemonset'
+
+alias kl='$_KUBECTL logs'
+alias klf='$_KUBECTL logs -f --tail 30'
+alias klff='$_KUBECTL logs -f'
+
+alias kgcrd='$_KUBECTL get crd'
+alias kgcrdy='$_KUBECTL get crd -oyaml'
+alias kdcrd='$_KUBECTL describe crd'
+
+alias kgkz='$_KUBECTL get kustomization'
+alias kgkzy='$_KUBECTL get kustomization -oyaml'
+alias kdkz='$_KUBECTL describe kustomization'
+
+alias kghr='$_KUBECTL get helmrelease'
+alias kghry='$_KUBECTL get helmrelease -oyaml'
+alias kdhr='$_KUBECTL describe helmrelease'
+
+alias kges='$_KUBECTL get externalsecret'
+alias kgesy='$_KUBECTL get externalsecret -oyaml'
+alias kdes='$_KUBECTL describe externalsecret'
+
+alias kgir='$_KUBECTL get ingressroute'
+alias kgiry='$_KUBECTL get ingressroute -oyaml'
+alias kdir='$_KUBECTL describe ingressroute'
