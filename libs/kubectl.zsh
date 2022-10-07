@@ -4,7 +4,7 @@
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Plugins
-PLUGINS=(ctx ns konfig view-secret neat images df_pv iexec)
+PLUGINS=(ctx ns konfig view-secret neat images df-pv iexec)
 
 # Remove skip-file
 remove_skip () {
