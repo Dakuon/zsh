@@ -2,10 +2,11 @@ zmodule zsh-users/zsh-completions --fpath src
 zmodule romkatv/powerlevel10k
 zmodule zsh-users/zsh-autosuggestions
 zmodule MichaelAquilina/zsh-you-should-use
-zmodule bobsoppe/zsh-ssh-agent
 zmodule zsh-users/zsh-syntax-highlighting
 zmodule ohmyzsh/ohmyzsh -f 'plugins/git' -s 'plugins/git/git.plugin.zsh' \
                         -f 'plugins/sudo' -s 'plugins/sudo/sudo.plugin.zsh' \
                         -f 'plugins/extract' -s 'plugins/extract/extract.plugin.zsh' \
                         -f 'plugins/command-not-found' -s 'plugins/command-not-found/command-not-found.plugin.zsh'
-zmodule junegunn/fzf
+zmodule junegunn/fzf -f 'shell' -s 'shell/completion.zsh' \
+                     -f 'shell' -s 'shell/key-bindings.zsh'
+zmodule sunlei/zsh-ssh
