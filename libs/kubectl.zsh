@@ -66,6 +66,8 @@ if [[ ! -d ~/.krew && ! -f ~/.skip_krew || ${KUBE_UPDATE} || ${INST} ]]; then
 fi
 
 # Set up commands
+source "${HOME}/.zsh/libs/krm-context.zsh"
+alias krmctx='_krm_context'
 
 # kubectl-krew
 alias kkrew=~/.krew/bin/kubectl-krew
@@ -95,78 +97,87 @@ if [ $commands[jq] ]; then
   alias ksview=~/.krew/bin/kubectl-view_secret
 fi
 
+# kubectl-iexec
+alias kexec="kubectl-iexec"
+
 # kubectl-neat
-alias kn=~/.krew/bin/kubectl-neat
+alias kn="kubectl-neat"
 
-alias kg='$_KUBECTL get -owide'
-alias kgy='$_KUBECTL get -oyaml $@'
-alias kd='$_KUBECTL describe'
-alias ka='$_KUBECTL apply -f $@'
-alias kak='$_KUBECTL apply -k $@'
-alias krm='$_KUBECTL delete'
+# kubectl-images
+alias kimages="kubectl-images"
 
-alias kgp='$_KUBECTL get pods -owide'
-alias kgpy='$_KUBECTL get pods -oyaml'
-alias kdp='$_KUBECTL describe pod'
-alias ktp='$_KUBECTL top pods'
+# kubectl-images
+alias kdf="kubectl-df_pv"
 
-alias kgn='$_KUBECTL get node -owide'
-alias kgny='$_KUBECTL get node -oyaml'
-alias kdn='$_KUBECTL describe node'
-alias ktn='$_KUBECTL top node'
+alias kg="$_KUBECTL get -owide"
+alias kgy="$_KUBECTL get -oyaml $@"
+alias kd="$_KUBECTL describe"
+alias ka="$_KUBECTL apply -f $@"
+alias kak="$_KUBECTL apply -k $@"
+alias krm="$_KUBECTL delete"
 
-alias kgsvc='$_KUBECTL get svc -owide'
-alias kgsvcy='$_KUBECTL get svc -oyaml'
-alias kdsvc='$_KUBECTL describe svc'
+alias kgp="$_KUBECTL get -owide po"
+alias kgpy="$_KUBECTL get -oyaml po"
+alias kdp="$_KUBECTL describe pod"
+alias ktp="$_KUBECTL top pods"
 
-alias kgns='$_KUBECTL get ns'
-alias kgnsy='$_KUBECTL get nsy -oyaml'
-alias kdns='$_KUBECTL describe ns'
+alias kgn="$_KUBECTL get -owide node"
+alias kgny="$_KUBECTL get -oyaml node"
+alias kdn="$_KUBECTL describe node"
+alias ktn="$_KUBECTL top node"
 
-alias kgsa='$_KUBECTL get sa'
-alias kgsay='$_KUBECTL get sa -oyaml'
-alias kdsa='$_KUBECTL describe sa'
+alias kgsvc="$_KUBECTL get -owide svc"
+alias kgsvcy="$_KUBECTL get -oyaml svc"
+alias kdsvc="$_KUBECTL describe svc"
 
-alias kgsec='$_KUBECTL get secret'
-alias kgsecy='$_KUBECTL get secret -oyaml'
-alias kdsec='$_KUBECTL describe secret'
+alias kgns="$_KUBECTL get ns"
+alias kgnsy="$_KUBECTL get -oyaml ns"
+alias kdns="$_KUBECTL describe ns"
 
-alias kgcm='$_KUBECTL get configmap'
-alias kgcmy='$_KUBECTL get configmap -oyaml'
-alias kdcm='$_KUBECTL describe configmap'
+alias kgsa="$_KUBECTL get sa"
+alias kgsay="$_KUBECTL get -oyaml sa"
+alias kdsa="$_KUBECTL describe sa"
 
-alias kgdep='$_KUBECTL get deployment'
-alias kgdepy='$_KUBECTL get deployment -oyaml'
-alias kddep='$_KUBECTL describe deployment'
+alias kgsec="$_KUBECTL get secret"
+alias kgsecy="$_KUBECTL get -oyaml secret"
+alias kdsec="$_KUBECTL describe secret"
 
-alias kgsta='$_KUBECTL get statefulset'
-alias kgstay='$_KUBECTL get statefulset -oyaml'
-alias kdsta='$_KUBECTL describe statefulset'
+alias kgcm="$_KUBECTL get configmap"
+alias kgcmy="$_KUBECTL get -oyaml configmap"
+alias kdcm="$_KUBECTL describe configmap"
 
-alias kgdae='$_KUBECTL get daemonset'
-alias kgdaey='$_KUBECTL get daemonset -oyaml'
-alias kddae='$_KUBECTL describe daemonset'
+alias kgdep="$_KUBECTL get deployment"
+alias kgdepy="$_KUBECTL get -oyaml deployment"
+alias kddep="$_KUBECTL describe deployment"
 
-alias kl='$_KUBECTL logs'
-alias klf='$_KUBECTL logs -f --tail 30'
-alias klff='$_KUBECTL logs -f'
+alias kgsta="$_KUBECTL get statefulset"
+alias kgstay="$_KUBECTL get -oyaml statefulset"
+alias kdsta="$_KUBECTL describe statefulset"
 
-alias kgcrd='$_KUBECTL get crd'
-alias kgcrdy='$_KUBECTL get crd -oyaml'
-alias kdcrd='$_KUBECTL describe crd'
+alias kgdae="$_KUBECTL get daemonset"
+alias kgdaey="$_KUBECTL get -oyaml daemonset"
+alias kddae="$_KUBECTL describe daemonset"
 
-alias kgkz='$_KUBECTL get kustomization'
-alias kgkzy='$_KUBECTL get kustomization -oyaml'
-alias kdkz='$_KUBECTL describe kustomization'
+alias kl="$_KUBECTL logs"
+alias klf="$_KUBECTL logs -f --tail 30"
+alias klff="$_KUBECTL logs -f"
 
-alias kghr='$_KUBECTL get helmrelease'
-alias kghry='$_KUBECTL get helmrelease -oyaml'
-alias kdhr='$_KUBECTL describe helmrelease'
+alias kgcrd="$_KUBECTL get crd"
+alias kgcrdy="$_KUBECTL get -oyaml crd"
+alias kdcrd="$_KUBECTL describe crd"
 
-alias kges='$_KUBECTL get externalsecret'
-alias kgesy='$_KUBECTL get externalsecret -oyaml'
-alias kdes='$_KUBECTL describe externalsecret'
+alias kgkz="$_KUBECTL get kustomization"
+alias kgkzy="$_KUBECTL get -oyaml kustomization"
+alias kdkz="$_KUBECTL describe kustomization"
 
-alias kgir='$_KUBECTL get ingressroute'
-alias kgiry='$_KUBECTL get ingressroute -oyaml'
-alias kdir='$_KUBECTL describe ingressroute'
+alias kghr="$_KUBECTL get helmrelease"
+alias kghry="$_KUBECTL get -oyaml helmrelease"
+alias kdhr="$_KUBECTL describe helmrelease"
+
+alias kges="$_KUBECTL get externalsecret"
+alias kgesy="$_KUBECTL get -oyaml externalsecret"
+alias kdes="$_KUBECTL describe externalsecret"
+
+alias kgir="$_KUBECTL get ingressroute"
+alias kgiry="$_KUBECTL get -oyaml ingressroute"
+alias kdir="$_KUBECTL describe ingressroute"
