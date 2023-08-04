@@ -8,11 +8,11 @@ source ~/.zsh/libs/directories.zsh
 source ~/.zsh/libs/history.zsh
 source ~/.zsh/libs/keybinds.zsh
 source ~/.zsh/libs/title.zsh
-source ~/.zsh/libs/ssh.zsh
 source ~/.zsh/libs/get.zsh
 
 if [ $commands[kubectl] ]; then
   source ~/.zsh/libs/kubectl.zsh
+  source ~/.zsh/libs/kstatus.zsh
 fi
 
 #######################
