@@ -30,7 +30,7 @@ if [ $commands[kustomize] ]; then
   source ~/.zsh/completion/kustomize.zsh
 fi
 
-if [ $commands[terraform] ]; then
+if [[ $commands[terraform] || $commands[tofu] ]]; then
   source ~/.zsh/completion/terraform.zsh
 fi
 
