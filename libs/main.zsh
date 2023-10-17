@@ -9,6 +9,7 @@ source ~/.zsh/libs/history.zsh
 source ~/.zsh/libs/keybinds.zsh
 source ~/.zsh/libs/title.zsh
 source ~/.zsh/libs/get.zsh
+source ~/.zsh/libs/update.zsh
 
 if [ $commands[kubectl] ]; then
   source ~/.zsh/libs/kubectl.zsh
