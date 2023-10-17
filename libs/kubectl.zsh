@@ -63,6 +63,7 @@ if [[ ! -d ~/.krew && ! -f ~/.skip_krew || ${KUBE_UPDATE} || ${INST} ]]; then
     install_plugins
     kubectl-krew upgrade
   fi
+  unset KUBE_UPDATE
 fi
 
 # Set up commands
