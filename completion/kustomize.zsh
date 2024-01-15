@@ -2,4 +2,4 @@ if [[ ! -f ~/.completion/_kustomize || "$(which kustomize)" -nt ~/.completion/_k
   kustomize completion zsh > ~/.completion/_kustomize
 fi
 
-alias kz=kustomize
+alias ks=kustomize
