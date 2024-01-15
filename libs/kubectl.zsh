@@ -131,6 +131,10 @@ alias kgsvc="$_KUBECTL get -owide svc"
 alias kgsvcy="$_KUBECTL get -oyaml svc"
 alias kdsvc="$_KUBECTL describe svc"
 
+alias kgep="$_KUBECTL get ep"
+alias kgepy="$_KUBECTL get -oyaml ep"
+alias kdep="$_KUBECTL describe ep"
+
 alias kgns="$_KUBECTL get ns"
 alias kgnsy="$_KUBECTL get -oyaml ns"
 alias kdns="$_KUBECTL describe ns"
