@@ -112,3 +112,6 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
+
+# Remove duplicate entries from $PATH
+typeset -U path
