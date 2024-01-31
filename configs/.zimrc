@@ -10,3 +10,4 @@ zmodule ohmyzsh/ohmyzsh -f 'plugins/git' -s 'plugins/git/git.plugin.zsh' \
 zmodule junegunn/fzf -f 'shell' -s 'shell/completion.zsh' \
                      -f 'shell' -s 'shell/key-bindings.zsh'
 zmodule sunlei/zsh-ssh
+zmodule hlissner/zsh-autopair
