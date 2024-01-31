@@ -3,47 +3,15 @@
 ###
 
 # Set correct ls-command
-if [[ "$OSTYPE" != "linux-gnu" && $commands[gls] ]]; then
-  export _LS=(=gls)
-  alias dircolors="gdircolors"
+if [[ "$OSTYPE" != "linux-gnu" && $commands[lsd] ]]; then
+  export _LS=(=lsd)
 else
   export _LS=(=ls)
 fi
 
-# Set GRC command
-if [ $commands[grc] ]; then
-  export _GRC=("grc" "--config=${HOME}/.zsh/dotfiles/.lsregex")
-fi
-
-$_LS --time-style="+%d-%m-%Y %H:%M" > /dev/null 2>&1
-if [ $? == 0 ]; then
-  export LS_ARGS=("--time-style=+%d-%m-%Y %H:%M")
-fi
-
-# Set ls args if supported
-$_LS --color > /dev/null 2>&1
-if [ $? == 0 ]; then
-  export LS_ARGS=(${LS_ARGS} "--color")
-fi
-
-# Set ls args if supported
-$_LS --group-directories-first > /dev/null 2>&1
-if [ $? == 0 ]; then
-  export LS_ARGS=(${LS_ARGS} "--group-directories-first")
-fi
-
-# Set ls file/folder colors
-if [[ $commands[dircolors] || $commands[gdircolors] ]]; then
-  eval "$(dircolors ${HOME}/.zsh/dotfiles/.lscolors)"
-fi
-
 # Set aliases
-alias ls='$_GRC $_LS $LS_ARGS -C $@'
-alias l='$_GRC $_LS $LS_ARGS -lh -F $@'
-alias lx='$_GRC $_LS $LS_ARGS -lh -F -X $@'
-alias la='$_GRC $_LS $LS_ARGS -C -A $@'
-alias ll='$_GRC $_LS $LS_ARGS -lh -FA $@'
-alias llx='$_GRC $_LS $LS_ARGS -lh -FA -X $@'
+alias l='$_LS -lh -F $@'
+alias ll='$_LS -lh -FA $@'
 
 # Changing/making/removing directory
 setopt autocd

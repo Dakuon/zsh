@@ -1,5 +1,5 @@
 if [ ! -f "${HOME}/.zimrc" ]; then
-  ln -s "${HOME}/.zsh/dotfiles/.zimrc" "${HOME}/.zimrc"
+  ln -s "${HOME}/.zsh/configs/.zimrc" "${HOME}/.zimrc"
 fi
 
 # zimfw settings

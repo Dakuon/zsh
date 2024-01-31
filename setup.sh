@@ -9,18 +9,17 @@ if [ "$(uname -s)" == "Linux" ]; then
   PROGS="$PROGS gawk"
 fi
 
-if [[ "$(uname -s)" == "Darwin" && ! "${commands[gls]}" ]]; then
-  echo "OPT: Install coreutils to colorise file/dir with ls"
+if [ ! "${commands[lsd]}" ]; then
+  echo "OPT: Install lsd (The next gen ls command) to colorise file/dir with ls"
 fi
 
-if [ ! "${commands[grc]}" ]; then
-  echo "OPT: Install GRC to colorise ls"
+if [ ! -d "${HOME}/.config/lsd" ]; then
+  mkdir -p "${HOME}/.config/lsd"
 fi
 
 if [[ "${commands[kubectl]}" && ! "${commands[jq]}" ]]; then
   echo "OPT: Install jq to enable ksview completion"
 fi
-
 
 check_deps () {
   echo Checking for dependencies
@@ -40,8 +39,12 @@ check_deps () {
 }
 
 symlink () {
-  ln -sf "${BASE_DIR}/dotfiles/.zshrc" "${HOME}/.zshrc"
-  ln -sf "${BASE_DIR}/dotfiles/.zimrc" "${HOME}/.zimrc"
+  ln -sf "${BASE_DIR}/configs/.zshrc" "${HOME}/.zshrc"
+  ln -sf "${BASE_DIR}/configs/.zimrc" "${HOME}/.zimrc"
+  if [[ -d "${HOME}/.config/lsd" && ! -f "${HOME}/.config/lsd/config.yaml" ]]; then
+    ln -sf "${BASE_DIR}/configs/lsd-config.yaml" "${HOME}/.config/lsd/config.yaml"
+    ln -sf "${BASE_DIR}/configs/lsd-colors.yaml" "${HOME}/.config/lsd/colors.yaml"
+  fi
 }
 
 for arg in "$@"; do
@@ -56,7 +59,7 @@ for arg in "$@"; do
       COMMANDENV="INST=true"
       ;;
     -u|--unattended)
-      COMMAND="${HOME}/.zsh/dotfiles/.unattended.sh"
+      COMMAND="${HOME}/.zsh/configs/.unattended.sh"
       ;;
     -z|--zsh-shell)
       SETSHELL=true
