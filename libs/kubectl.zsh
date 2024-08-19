@@ -79,6 +79,10 @@ if [ $commands[kubecolor] ]; then
   compdef kubecolor=kubectl
   export _KUBECTL=(=kubecolor)
   alias k=kubecolor
+
+  KUBECOLOR_THEME_TABLE_HEADER=#5a8487
+  KUBECOLOR_PRESET="protanopia-dark"
+  KUBECOLOR_OBJ_FRESH=10m
 else
   export _KUBECTL=(=kubectl)
   alias k=kubectl
