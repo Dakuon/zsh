@@ -113,6 +113,29 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 
+# fzf-tab settings
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+
+# preview directory's content with eza when completing cd
+if [ $commands[lsd] ]; then
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
+else
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath'
+fi
+
+zstyle ':fzf-tab:complete:vim:*' fzf-preview 'lsd -1 --color=always $realpath'
+
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
 # fix slow-paste caused by zsh-autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238#issuecomment-389324292
 pasteinit() {
