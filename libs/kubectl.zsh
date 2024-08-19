@@ -80,9 +80,9 @@ if [ $commands[kubecolor] ]; then
   export _KUBECTL=(=kubecolor)
   alias k=kubecolor
 
-  KUBECOLOR_THEME_TABLE_HEADER=#5a8487
-  KUBECOLOR_PRESET="protanopia-dark"
-  KUBECOLOR_OBJ_FRESH=10m
+  export KUBECOLOR_THEME_TABLE_HEADER=#5a8487
+  export KUBECOLOR_PRESET="protanopia-dark"
+  export KUBECOLOR_OBJ_FRESH=10m
 else
   export _KUBECTL=(=kubectl)
   alias k=kubectl
