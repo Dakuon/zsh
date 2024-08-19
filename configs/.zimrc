@@ -11,3 +11,6 @@ zmodule junegunn/fzf -f 'shell' -s 'shell/completion.zsh' \
                      -f 'shell' -s 'shell/key-bindings.zsh'
 zmodule sunlei/zsh-ssh
 zmodule hlissner/zsh-autopair
+zmodule Aloxaf/fzf-tab
+zmodule agkozak/zsh-z
+zmodule trapd00r/LS_COLORS -s lscolors.sh
