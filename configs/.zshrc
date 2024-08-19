@@ -70,6 +70,9 @@ POWERLEVEL9K_AWS_VAULT_PROFILE_PROD_VISUAL_IDENTIFIER_EXPANSION='🔥'
 POWERLEVEL9K_AWS_VAULT_PROFILE_PROD_CONTENT_EXPANSION='Prod > ${P9K_CONTENT} <'
 POWERLEVEL9K_AWS_VAULT_PROFILE_CLASSES=('dev*' DEV 'prod*' PROD '*' DEFAULT)
 
+# Initialize completion so that completions from custom settings are loaded
+source ~/.zsh/libs/comp.zsh
+
 # Source custom settings
 if [ -f ~/.zsh/local/custom.zsh ]; then
   source ~/.zsh/local/custom.zsh

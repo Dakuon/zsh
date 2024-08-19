@@ -1,7 +1,3 @@
-#######################
-# Libs
-#######################
-source ~/.zsh/libs/comp.zsh
 source ~/.zsh/libs/zimfw.zsh
 source ~/.zsh/libs/completion.zsh
 source ~/.zsh/libs/directories.zsh
@@ -10,15 +6,13 @@ source ~/.zsh/libs/keybinds.zsh
 source ~/.zsh/libs/title.zsh
 source ~/.zsh/libs/get.zsh
 source ~/.zsh/libs/update.zsh
+source ~/.zsh/libs/aws.zsh
 
 if [ $commands[kubectl] ]; then
   source ~/.zsh/libs/kubectl.zsh
   source ~/.zsh/libs/kstatus.zsh
 fi
 
-#######################
-# Completion
-#######################
 if [ $commands[helm] ]; then
   source ~/.zsh/completion/helm.zsh
 fi
