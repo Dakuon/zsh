@@ -3,3 +3,4 @@ if [[ ! -f ~/.completion/_kustomize || "$(which kustomize)" -nt ~/.completion/_k
 fi
 
 alias ks=kustomize
+alias ksb="kustomize build ."
