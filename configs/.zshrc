@@ -125,16 +125,18 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu no
 
 # preview directory's content with eza when completing cd
-if [ $commands[lsd] ]; then
-  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
-else
-  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath'
+if [ $commands[fzf] ]; then
+  if [ $commands[lsd] ]; then
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always --icon=always $realpath'
+  else
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color=always $realpath'
+  fi
+
+  zstyle ':fzf-tab:complete:vim:*' fzf-preview 'lsd -1 --color=always $realpath'
+
+  # switch group using `<` and `>`
+  zstyle ':fzf-tab:*' switch-group '<' '>'
 fi
-
-zstyle ':fzf-tab:complete:vim:*' fzf-preview 'lsd -1 --color=always $realpath'
-
-# switch group using `<` and `>`
-zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # fix slow-paste caused by zsh-autosuggestions
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238#issuecomment-389324292
