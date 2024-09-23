@@ -7,7 +7,7 @@ zmodule ohmyzsh/ohmyzsh -f 'plugins/git' -s 'plugins/git/git.plugin.zsh' \
                         -f 'plugins/sudo' -s 'plugins/sudo/sudo.plugin.zsh' \
                         -f 'plugins/extract' -s 'plugins/extract/extract.plugin.zsh' \
                         -f 'plugins/command-not-found' -s 'plugins/command-not-found/command-not-found.plugin.zsh'
-zmodule junegunn/fzf -f 'shell' -s 'shell/completion.zsh' \
+zmodule junegunn/fzf -f 'shell' -s 'shell/completion.zsh' --on-pull './install --bin' \
                      -f 'shell' -s 'shell/key-bindings.zsh'
 zmodule sunlei/zsh-ssh
 zmodule hlissner/zsh-autopair
