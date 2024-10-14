@@ -1,16 +1,32 @@
-zmodule zsh-users/zsh-completions --fpath src
-zmodule romkatv/powerlevel10k
-zmodule zsh-users/zsh-autosuggestions
-zmodule MichaelAquilina/zsh-you-should-use
-zmodule zsh-users/zsh-syntax-highlighting
-zmodule ohmyzsh/ohmyzsh -f 'plugins/git' -s 'plugins/git/git.plugin.zsh' \
-                        -f 'plugins/sudo' -s 'plugins/sudo/sudo.plugin.zsh' \
-                        -f 'plugins/extract' -s 'plugins/extract/extract.plugin.zsh' \
-                        -f 'plugins/command-not-found' -s 'plugins/command-not-found/command-not-found.plugin.zsh'
-zmodule junegunn/fzf -f 'shell' -s 'shell/completion.zsh' --on-pull './install --bin' \
-                     -f 'shell' -s 'shell/key-bindings.zsh'
-zmodule sunlei/zsh-ssh
-zmodule hlissner/zsh-autopair
+# https://github.com/junegunn/fzf
+zmodule junegunn/fzf --on-pull './install --bin' \
+                     -s 'shell/completion.zsh' \
+                     -s 'shell/key-bindings.zsh' \
+                     -c 'export PATH="${PATH}:${HOME}/.zim/modules/fzf/bin"'
+# https://github.com/Aloxaf/fzf-tab
 zmodule Aloxaf/fzf-tab
+# Compinit: Initialization for completion
+zmodule completion
+# https://github.com/zsh-users/zsh-completions
+zmodule zsh-users/zsh-completions
+# https://github.com/romkatv/powerlevel10k
+zmodule romkatv/powerlevel10k
+# https://github.com/zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-autosuggestions
+# https://github.com/MichaelAquilina/zsh-you-should-use
+zmodule MichaelAquilina/zsh-you-should-use
+# https://github.com/ohmyzsh/ohmyzsh
+zmodule ohmyzsh/ohmyzsh -s 'plugins/git/git.plugin.zsh' \
+                        -s 'plugins/sudo/sudo.plugin.zsh' \
+                        -s 'plugins/extract/extract.plugin.zsh' \
+                        -s 'plugins/command-not-found/command-not-found.plugin.zsh'
+# https://github.com/sunlei/zsh-ssh
+zmodule sunlei/zsh-ssh
+# https://github.com/hlissner/zsh-autopair
+zmodule hlissner/zsh-autopair
+# https://github.com/agkozak/zsh-z
 zmodule agkozak/zsh-z
+# https://github.com/trapd00r/LS_COLORS
 zmodule trapd00r/LS_COLORS -s lscolors.sh
+# https://github.com/zdharma-continuum/fast-syntax-highlighting
+zmodule zdharma-continuum/fast-syntax-highlighting
