@@ -1,3 +1,2 @@
-autoload -Uz compinit bashcompinit
-compinit
+autoload -Uz bashcompinit
 bashcompinit
