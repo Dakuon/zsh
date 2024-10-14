@@ -3,8 +3,10 @@
 ###
 
 # Set correct ls-command
-if [[ "$OSTYPE" != "linux-gnu" && $commands[lsd] ]]; then
+if [ "${commands[lsd]}" ]; then
   export _LS=(=lsd)
+elif [[ "$OSTYPE" != "linux-gnu" && $commands[gls] ]]; then
+  export _LS=(=gls)
 else
   export _LS=(=ls)
 fi
