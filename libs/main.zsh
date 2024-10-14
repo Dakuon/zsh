@@ -6,7 +6,6 @@ source ~/.zsh/libs/keybinds.zsh
 source ~/.zsh/libs/title.zsh
 source ~/.zsh/libs/get.zsh
 source ~/.zsh/libs/update.zsh
-source ~/.zsh/libs/aws.zsh
 
 if [ $commands[kubectl] ]; then
   source ~/.zsh/libs/kubectl.zsh
@@ -34,6 +33,7 @@ if [ $commands[aws] ]; then
 fi
 
 if [ $commands[aws-vault] ]; then
+  source ~/.zsh/libs/aws-vault.zsh
   source ~/.zsh/completion/aws-vault.zsh
 fi
 
