@@ -9,16 +9,8 @@ if [ "$(uname -s)" == "Linux" ]; then
   PROGS="$PROGS gawk"
 fi
 
-if [ ! "${commands[lsd]}" ]; then
-  echo "OPT: Install lsd (The next gen ls command) to colorise file/dir with ls"
-fi
-
 if [ ! -d "${HOME}/.config/lsd" ]; then
   mkdir -p "${HOME}/.config/lsd"
-fi
-
-if [[ "${commands[kubectl]}" && ! "${commands[jq]}" ]]; then
-  echo "OPT: Install jq to enable ksview completion"
 fi
 
 check_deps () {
