@@ -73,7 +73,7 @@ POWERLEVEL9K_AWS_VAULT_PROFILE_CLASSES=('dev*' DEV 'prod*' PROD '*' DEFAULT)
 # Initialize completion so that completions from custom settings are loaded
 source ~/.zsh/libs/comp.zsh
 
-# Source custom settings
+# Source custom settings - pre zim modules and compinit
 if [ -f ~/.zsh/local/custom.zsh ]; then
   source ~/.zsh/local/custom.zsh
 fi
@@ -81,9 +81,10 @@ fi
 # Load libs
 source ~/.zsh/libs/main.zsh
 
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
+# Source custom settings - post zim modules and compinit
+if [ -f ~/.zsh/local/custom-post.zsh ]; then
+  source ~/.zsh/local/custom-post.zsh
+fi
 
 # Create dir for completions
 if [ ! -d ~/.completion ]; then
